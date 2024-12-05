@@ -1,0 +1,121 @@
+{% extends "base.html" %}
+
+{% block title %}search venues |{% endblock title %}
+{% load static %}
+{% block content %}
+
+{% include 'includes/header.html' %}
+<!-- -->
+
+
+
+
+<!-- All venues -->
+<section id="all-venues-section" style="font-family: Roboto Slab, serif;">
+    <!-- Venue section -->
+    <section id="venue-section" class="container-fluid pt-3 pb-5">
+        <div class="mb-4 text-center">
+            <h4>Search results for "{{ query }}" </h4>
+        </div>
+        <div class="row row-cols-sm-2 row-cols-1 row-cols-md-3 row-cols-lg-4 g-2">
+            {% for venue in page_obj %}
+            <div class="col">
+                <div class="card border-0">
+                    <a href="{% url 'venue_detail' venue.slug %}">
+                        {% if venue.image1 %}
+                        <img src="{{ venue.image1.url }}" class="card-img-top venue-img" alt="venue image">
+                        {% else %}
+                        <img src="{% static 'images/defaults/Location_icon_from_Noun_Project.png'%}" class="card-img-top venue-img" alt="venue image">
+                        {% endif %}
+                    </a>
+                    <div class="card-body ps-1">
+                        <a href="{% url 'venue_detail' venue.slug %}" class="text-decoration-none"
+                            style="color: #003b5c;">
+                            <p class="card-title fw-bold">{{ venue.name }}</p>
+                        </a>
+
+                        <small>{{ venue.location}} - {{ venue.county}}</small><br>
+                        <a href="{% url 'venue_events' venue.slug %}" class="text-decoration-none" style="color: #d86018;">
+                            <small>{% if venue.events.all.count > 1 or venue.events.all.count == 0 %}
+                                {{ venue.events.all.count }} events
+                            {% else %}
+                                {{ venue.events.all.count }} event
+                            {% endif %}</small>
+                        </a>
+
+                    </div>
+                </div>
+            </div>
+            {% empty %}
+            <div class="mb-4 text-center">
+                <p>No results for the query "{{ query }}"</p>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagivation -->
+     <div class="container d-flex justify-content-center">
+        <div class="my-3">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item me-2">
+                            <a href="?page=1">&laquo; first</a>
+                    </li>
+                    <li class="page-item me-2">
+                            <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item me-2">
+                        <span>
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </span>
+                    </li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item me-2">
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+        <!-- search banner -->
+        <section id="banner" class="mt-4 mb-2">
+            <div class="banner-container">
+                <img src="{% static 'images/banners/evans-dims-bVTQhjqPnzU-unsplash.jpg' %}" alt="Our team"
+                    class="banner-img" srcset="">
+                <div class="banner-overlay">
+                    <h5 class="display-3 fw-semibold mb-4">Find a venue</h5>
+                    <form class="d-flex search-form" method="get" action="{% url 'search_venues' %}" role="search">
+                        
+                        <div class="row">
+                            <div class="col">
+                                {% csrf_token %}
+                                <input name="query" class="me-2 my-1" type="search" placeholder="Search venue" aria-label="Search">
+                            </div>
+                            <div class="col">
+                                <button class="search-btn my-1" type="submit">Search</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </section>
+</section>
+
+<!-- back to top -->
+<div class="pb-4 text-center">
+    <a href="#" class=" text-decoration-none" style="color: #003b5c;font-family: Roboto Slab, serif;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+          </svg><spa class="ms-3 text-decoration-none">Top</span>
+    </a>
+</div>
+{% include 'includes/footer.html' %}
+{% endblock content %}

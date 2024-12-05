@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block title %}verification | {% endblock title %}
+
+{% block content %}
+
+    <section id="login-section">
+        <div class="container d-block align-content-center">
+            <div class="login">
+                <form action="{% url 'activate' %}" method="POST">
+                    {% csrf_token %}
+                    <h2>Verification</h2>
+                    {% include 'includes/alert.html' %}
+                    <label for="otp">OTP</label>
+                    <input type="text" name="otp" id="otp" placeholder="Enter OTP" required>
+                    <button type="submit">Verify</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

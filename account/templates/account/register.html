@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+
+{% block title %}register |{% endblock title %}
+
+{% block content %}
+
+    <section id="signup-section">
+        <div class="container d-block align-content-center">
+            <div class="signup">
+                <form action="{% url 'register' %}" method="POST">
+                {% csrf_token %}
+                    
+                    <h2>Sign up</h2>
+                    {% include 'includes/alert.html' %}
+                    <label>first name</label>
+                    {{ form.first_name }}
+                    <label>last name</label>
+                    {{ form.last_name }}
+                    <label>Username</label>
+                    {{ form.username }}
+                    {% if form.username.errors %}
+                        <span style="color: #f0b323; text-align: center;">{{ form.username.errors }}</span>
+                    {% endif %}
+                    <label>Email</label>
+                    {{ form.email }}
+                    {% if form.email.errors %}
+                        <span style="color: #f0b323; text-align: center;">{{ form.email.errors }}</span>
+                    {% endif %}
+                    <label>Phone number</label>
+                    {{ form.phone_number }}
+                    <label>Password</label>
+                    {{ form.password }}
+                    {% if form.password.errors %}
+                        <span style="color: #f0b323; text-align: center;">{{ form.password.errors }}</span>
+                    {% endif %}
+                    <label>Confirm password</label>
+                    {{ form.confirm_password }}
+                    {% if form.non_field_errors %}
+                        <div class="alert alert-warning pb-0 mb-0" role="alert">
+                            {{ form.non_field_errors }}
+                        </div>
+                    {% endif %}
+                    <button type="submit">Signup</button>
+                </form>
+                <div class="pb-4 text-lg-center">
+                    <span>Already have an account?</span> <a href="{% url 'login' %}"
+                        class="text-decoration-none ps-2">Login</a>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+{% endblock content %}

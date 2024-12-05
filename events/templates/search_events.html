@@ -1,0 +1,112 @@
+{% extends "base.html" %}
+
+{% block title %}search events |{% endblock title %}
+{% load static %}
+{% block content %}
+{% include 'includes/header.html' %}
+<!-- All events section -->
+<section id="all-events-section" class="container-fluid my-3"  style="font-family: Roboto Slab, serif">
+    <div class="mb-4 text-center">
+        <h3>Searh results for "{{ query }}" </h3>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for event in page_obj %}
+        <div class="col">
+            <div class="card border-0">
+                {% if event.image %}
+                <a href="{% url 'event_details' event.category.slug event.slug %}">
+                    <img src="{{ event.image.url }}" class="card-img-top img-fit event-img" alt="event photo">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <center>
+                        <small class="card-text">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {{ event.remaining_days }}</small>
+                        <a href="{% url 'event_details' event.category.slug event.slug %}" class="text-decoration-none"
+                            style="color: #003b5c;">
+                            <p class="card-title fw-bold">{{ event.title }}</p>
+                        </a>
+                    </center>
+                    <div class="row mt-3">
+                        <div class="col">
+
+                            <small class="card-text">
+                                <strong>Venue:</strong>
+                                <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none"
+                                    style="color: #d86018;">{{ event.venue.name }}</a>
+                            </small>
+                            <br>
+                            <small><strong>Location: </strong> {{ event.location }}</small><br>
+                            <small>
+                                <strong>County: 
+                                    <a href="{% url 'county' event.county_local.slug %}" class="text-decoration-none fw-bold"
+                                style="color: #d86018;">{{ event.county_local }}</a>
+                                </strong>
+                            </small>
+                            <br>
+                            <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold"
+                                style="color: #d86018;">
+                                <small>{{ event.category }}</small>
+                            </a><br>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <div class="text-center">
+                                <a href="{% url 'group_events' event.church_or_group.slug %}"
+                                    class="text-decoration-none" style="color: #003b5c;">
+                                    <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                                    <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="mb-4 text-center">
+            <p>No events at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+
+    <!-- Pagivation -->
+    <div class="container d-flex justify-content-center">
+        <div class="my-3">
+            <nav aria-label="...">
+                <ul class="pagination">
+                    {% if page_obj.has_previous %}
+                    <li class="page-item me-2">
+                        <a href="?page=1">&laquo; first</a>
+                    </li>
+                    <li class="page-item me-2">
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    </li>
+                    {% endif %}
+                    <li class="page-item me-2">
+                        <span>
+                            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}
+                        </span>
+                    </li>
+                    {% if page_obj.has_next %}
+                    <li class="page-item me-2">
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                    </li>
+                    <li class="page-item">
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+</section>
+<!-- back to top -->
+<div class="pb-4 text-center">
+    <a href="#" class=" text-decoration-none" style="color: #003b5c;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+          </svg><spa class="ms-3 text-decoration-none">Top</span>
+    </a>
+</div>
+{% include 'includes/footer.html' %}
+{% endblock %}

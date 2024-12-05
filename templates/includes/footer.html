@@ -1,0 +1,42 @@
+{% load static %}
+
+<!-- Footer -->
+<div class="divider">
+</div>
+<section id="footer-section" style="font-family: Roboto Slab, serif">
+    <footer class="pt-5 pt-md-5 pb-4">
+        <div class="container-fluid">
+            <div class="row px-2">
+                <!-- Brand -->
+                <div class="col-12 col-md">
+                    <a href="{% url 'home' %}"><img src="{% static 'images/logo/logo3_31_153930.png' %}" alt="Logo" width="100"
+                        class="d-inline-block"></a>
+                    <small class="d-block ps-3 mb-3">&copy; <span id="currentYear"></span>. All rights reserved.</small>
+                    
+                </div>
+                <!-- Categories -->
+                <div class="col-6 col-md ps-4 pt-3">
+                    
+                </div>
+               
+                <!-- Other navigations -->
+                <div class="col-6 col-md">
+                    <!--<h5>About</h5>-->
+                    <ul class="list-unstyled text-small pt-3">
+                        <li class="mb-1"><a class="text-white text-decoration-none" href="{% url 'events' %}">Events</a>
+                        </li>
+                        <li class="mb-1"><a class="text-white text-decoration-none" href="{% url 'venues' %}">Venues</a></li>
+                        <li class="mb-1"><a class="text-white text-decoration-none" href="{% url 'all_news' %}">News</a></li>
+                        <li class="mb-1"><a class="text-white text-decoration-none" href="{% url 'about' %}">About</a></li>
+                        <li class="mb-1"><a class="text-white text-decoration-none" href="{% url 'contact_us' %}">Contact</a>
+                        </li>
+
+                        <li class="mb-1"><a class="text-white text-decoration-none" href="#">Terms</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+    </footer>
+
+</section>

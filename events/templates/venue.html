@@ -1,0 +1,227 @@
+{% extends "base.html" %}
+
+{% block title %}{{ venue.name }} | {% endblock title %}
+{% load static %}
+{% block content %}
+{% include 'includes/header.html' %}
+    <!-- Venue carousel -->
+    <section id="venue-carousel" class="container-fluid">
+        <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
+            <div class="carousel-inner">
+                {% if venue.image1 %}
+                <div class="carousel-item active">
+                    <img src="{{ venue.image1.url }}"
+                        class="d-block w-100 carousel-img" alt="...">
+                </div>
+                {% else %}
+                <div class="carousel-item active">
+                    <img src="{% static 'images/defaults/Location_icon_from_Noun_Project.png'%}"
+                        class="d-block w-100 carousel-img" alt="...">
+                </div>
+                {% endif %}
+                {% if venue.image2 %}
+                <div class="carousel-item">
+                    <img src="{{ venue.image2.url }}"
+                        class="d-block w-100 carousel-img" alt="...">
+                </div>
+                {% else %}
+                <div class="carousel-item active">
+                    <img src="{% static 'images/defaults/location-pin-vector-icon-2.jpg'%}"
+                        class="d-block w-100 carousel-img" alt="...">
+                </div>
+                {% endif %}
+                {% if venue.image3 %}
+                <div class="carousel-item">
+                    <img src="{{ venue.image3.url }}"
+                        class="d-block w-100 carousel-img" alt="...">
+                </div>
+                {% else %}
+                <div class="carousel-item active">
+                    <img src="{% static 'images/defaults/location-pin-vector-icon.jpg'%}"
+                        class="d-block w-100 carousel-img" alt="...">
+                </div>
+                {% endif %}
+            </div>
+            <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Previous</span>
+            </button>
+            <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleAutoplaying"
+                data-bs-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="visually-hidden">Next</span>
+            </button>
+        </div>
+    </section>
+
+    <!-- Venue details -->
+    <section id="venue-details" style="font-family: Roboto Slab, serif;">
+        <div class="container my-4">
+            <div class="row p-3">
+                <div class="col-md-6 p-2">
+                    <div class="venue-info">
+                        <h4 class="text-white fw-bolder mb-3">{{ venue.name }}</h4>
+                        {% if venue.venue_type %}
+                            <button class="venue-type-btn">{{ venue.venue_type}}</button>
+                        {% endif %}
+                        <p class="mt-2 text-white">
+                            <span>
+                                <i class="bi bi-geo-alt-fill fs"></i>
+                            </span>
+                            <span><small>{{ venue.location }}, {{ venue.county }}</small></span>
+                        </p>
+                        {% if venue.website_url %}
+                        <a href="{{ venue.website_url }}" target="_blank" class="text-decoration-none" style="color: #f0b323;">
+                            <span>
+                                <i class="bi bi-link"></i>
+                            </span>
+                            <span class="ms-2"><small>Website (click)</small></span>
+                        </a>
+                        {% endif %}
+                        <div class="text-white mt-2">
+                            {% if venue.phone %}
+                            <small><strong class="pe-2">Phone:</strong> {{ venue.phone }}</small>
+                            <br>
+                            {% endif %}
+                            {% if venue.email %}
+                            <small><strong class="pe-2">email:</strong> {{ venue.email }}</small>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+                <div class="col-md-6 d-flex justify-content-center p-2">
+                    <!-- venue social links -->
+                    <div class="btn-group my-4 ps-3 pb-2">
+                        {% if venue.fb_link %}
+                        <a href="{{ venue.fb_link }}" class="active me-4 text-white venue-link">
+                            <i class="bi bi-facebook fs-1"></i>
+                        </a>
+                        {% endif %}
+                        {% if venue.ig_link %}
+                        <a href="{{ venue.ig_link }}" class="active text-white me-4 venue-link">
+                            <i class="bi bi-instagram fs-1"></i>
+                        </a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+
+
+            <div class="text-black">
+                <div class="row mb-4 mt-4 bg-white">
+                    <div class="col-lg-8">
+                        <!-- Venue description -->
+                        <strong class="fs-5 ms-1 text-decoration-underline">Description</strong>
+                        <p id="description-text" class="mx-1 mt-2">{{ venue.description|safe }}</p>
+                        <div class="my-5">
+                            <!-- Events in the venue -->
+                            
+                            <strong class="fs-5 ms-1 text-decoration-underline">Events in this venue</strong>
+                            <div class="row row-cols-1 row-cols-md-1 row-cols-lg-2 g-2 bg-white mt-4">
+                                {% for event in venue.events.all|slice:':3' %}
+                                <div class="col">
+                                    <div class="card border-0">
+                                        {% if event.image %}
+                                        <a href="{% url 'event_details' event.category.slug event.slug %}">
+                                            <img src="{{ event.image.url }}"
+                                                class="card-img-top img-fit event-img" style="max-height: 352px; object-fit: cover;" alt="event photo">
+                                        </a> 
+                                        {% endif %}
+                                        <div class="card-body">
+                                            <center>
+                                                <small class="card-text">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {{ event.remaining_days }}</small>
+                                                <a href="{% url 'event_details' event.category.slug event.slug %}" class="text-decoration-none"
+                                                    style="color: #003b5c;">
+                                                    <p class="card-title fw-bold">{{ event.title }}</p>
+                                                </a>
+                                            </center>
+                                            <div class="row mt-3 bg-transparent">
+                                                <div class="col">
+                        
+                                                    <small class="card-text">
+                                                        <strong>Venue:</strong>
+                                                        <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none" style="color: #d86018;">{{ event.venue.name }}</a>
+                                                    </small>
+                                                    <br>
+                                                    <small><strong>Location:</strong> {{ event.location }}, {{ event.county }}</small><br>
+                                                    <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold" style="color: #d86018;">
+                                                        <small>{{ event.category }}</small>
+                                                    </a><br>
+                                                </div>
+                                                <div class="col d-flex justify-content-center align-items-center">
+                                                    <div class="text-center">
+                                                        <a href="{% url 'group_events' event.church_or_group.slug %}" class="text-decoration-none" style="color: #003b5c;">
+                                                            <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                                                            <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
+                                                        </a>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                {% endfor %}                                
+                            </div>
+                            <div class="mb-5 mt-3">
+                                <center>
+                                    <a href="{% url 'venue_events' venue.slug %}" class="btn btn-warning border-2 fw-bold">view all</a>
+                                </center>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Similar venues -->
+                    <div class="col-lg-4">
+                        <div class="mb-3 text-center">
+                            <strong class="fs-5 text-decoration-underline">Similar venues</strong>
+                        </div>
+                            {% for similar_venue in venue.venue_type.venue_types.all %}
+                            {% if venue.id != similar_venue.id %}
+                            <div class="card border-0">
+                                {% if similar_venue.image1 %}
+                                <a href="{% url 'venue_detail' similar_venue.slug %}">
+                                    <img src="{{ venue.image1.url }}" class="card-img-top venue-img-top" alt="venue image">
+                                </a>
+                                {% else %} 
+                                <a href="{% url 'venue_detail' similar_venue.slug %}">
+                                    <img src="{% static 'images/defaults/Location_icon_from_Noun_Project.png'%}" class="card-img-top venue-img-top" alt="venue image">
+                                </a>
+                                {% endif %}
+                                <div class="card-body ps-1">
+                                    <a href="{% url 'venue_detail' similar_venue.slug %}" class="text-decoration-none"
+                                        style="color: #003b5c;">
+                                        <p class="card-title fw-bold">{{ similar_venue.name }}</p>
+                                    </a>
+        
+                                    <small>{{similar_venue.location}} - {{similar_venue.county}}</small><br>
+                                    <a href="{% url 'venue_events' similar_venue.slug %}" class="text-decoration-none" style="color: #d86018;">
+                                        <small>
+                                            {% if venue.events.all.count > 1 or venue.events.all.count == 0 %}
+                                                Events
+                                            {% else %}
+                                                Events
+                                            {% endif %}</small>
+                                    </a>
+        
+                                </div>
+                            </div>
+                            {% endif %}
+                            {% empty %}
+                            <p>No similar venues at the moment.</p>
+                            {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- back to top -->
+    <div class="pb-4 text-center" style="font-family: Roboto Slab, serif;">
+        <a href="#" class=" text-decoration-none" style="color: #003b5c;">
+            <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
+                <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+              </svg><spa class="ms-3 text-decoration-none">Top</span>
+        </a>
+    </div>
+{% include 'includes/footer.html' %}
+{% endblock content %}

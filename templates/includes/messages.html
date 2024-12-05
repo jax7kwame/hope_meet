@@ -1,0 +1,20 @@
+
+<script>
+$(document).ready(function () {
+    setInterval(function () {
+        $('#autorefresh').load(window.location.href + " #autorefresh");
+    }, 1000)
+})
+</script>
+{% for message in conversation.messages.all %}
+    <div class="card mb-3 {% if message.created_by == request.user %} bg-primary {% else %} bg-secondary {% endif %}">
+        <div class="p-3">
+            {% if request.user == message.created_by %}
+                <p><strong>{{ message.created_by.username }}</strong> @ {{ message.created_at }}</p>
+            {% else %}
+                <P><strong>{{ conversation.product.vendor }}</strong> @ {{ message.created_at }}</p>
+            {% endif %}
+            <p>{{ message.content }}</p>
+        </div>
+    </div>
+{% endfor %}

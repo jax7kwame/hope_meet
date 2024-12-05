@@ -1,0 +1,71 @@
+{% extends "base.html" %}
+
+{% block title %}{{ county.name }} | {% endblock title %}
+
+{% block content %}
+{% include 'includes/header.html' %}
+<!-- All category events section -->
+<section id="all-events-section" class="container-fluid my-3" style="font-family: Roboto Slab, serif">
+    <div class="my-5">
+        <h3>County: {{ county.name }}</h3>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for event in county.events.all %}
+        {% if event.post_event %}
+        <div class="col">
+            <div class="card border-0">
+                {% if event.image %}
+                <a href="{% url 'event_details' event.category.slug event.slug %}">
+                    <img src="{{ event.image.url}}"
+                        class="card-img-top event-img" alt="...">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <center>
+                        <small class="card-text">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {{ event.remaining_days }}</small>
+                        <a href="{% url 'event_details' event.category.slug event.slug %}" style="text-decoration: none; color: black;">
+                            <p class="card-title fw-bold">{{ event.title }}</p>
+                        </a>
+                    </center>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <small class="card-text">
+                                <strong>Venue:</strong>
+                                <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none" style="color: #d86018;">{{ event.venue.name }}</a>
+                            </small>
+                            <br>
+                            <small><strong>Location:</strong>{{ event.location }}</small>
+                            <br>
+                            <small>
+                                <strong>County: 
+                                    {{ event.county_local }}
+                                </strong>
+                            </small>
+                            <br>
+                            <a href="" style="text-decoration: none; color: #003b5c;">
+                                <small class="fw-bold">{{ event.category }}</small>
+                            </a>
+                            <br>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <a href="{% url 'group_events' event.church_or_group.slug %}" style="text-decoration: none; color: black;">
+                                <div class="text-center">
+                                    <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                                    <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endif %}
+        {% empty %}
+        <div class="mb-4 text-center">
+            <p>No events in this county at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+</section>
+{% include 'includes/footer.html' %}
+{% endblock content %}

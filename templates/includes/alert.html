@@ -1,0 +1,11 @@
+{% if messages %}
+<ul class="messages" style="list-style-type: none; margin: 0; padding: 0;">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }} text-center"{% endif %}>
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}Important: {% endif %}
+        <strong>{{ message }}</strong>
+    </li>
+    {% endfor %}
+</ul>
+
+{% endif %}

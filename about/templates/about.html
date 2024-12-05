@@ -1,0 +1,245 @@
+{% extends "base.html" %}
+
+{% block title %}about |{% endblock title %}
+ 
+{% block content %}
+{% include 'includes/header.html' %}
+<main>
+
+    <!-- About banner -->
+    <section id="banner" class="mt-3 mb-5 mx-3">
+        <div class="banner-container">
+            <img src="{{ about_info.banner_image.url }}" alt="Our team"
+                class="banner-img" srcset="">
+            <div class="banner-overlay">
+                <h3 class="display-3 fw-semibold">About us</h3>
+                <a href="{% url 'home' %}" class="text-decoration-none text-white">
+                    <span>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" fill="currentColor"
+                            class="bi bi-house-door-fill pb-2" viewBox="0 0 16 16">
+                            <path
+                                d="M6.5 14.5v-3.505c0-.245.25-.495.5-.495h2c.25 0 .5.25.5.5v3.5a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5v-7a.5.5 0 0 0-.146-.354L13 5.793V2.5a.5.5 0 0 0-.5-.5h-1a.5.5 0 0 0-.5.5v1.293L8.354 1.146a.5.5 0 0 0-.708 0l-6 6A.5.5 0 0 0 1.5 7.5v7a.5.5 0 0 0 .5.5h4a.5.5 0 0 0 .5-.5" />
+                        </svg>
+                        Home</span></a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About text -->
+    <div class="container-fluid" style="font-family: Roboto Slab, serif">
+        <div class="row mb-4 mt-4">
+            <div class="col-lg-12 text-center">
+                <p class="mx-5">{{ about_info.description|safe }}</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Services section -->
+    <section id="services" style="font-family: Roboto Slab, serif">
+        <div class="container my-5 pb-3">
+            <div class="row mb-4 mt-4">
+                <div class="col-lg-12 text-center">
+                    <h1 class="mb-4 text-center">Services</h1>
+                    <p class="mx-5">{{ about_info.services_intro|safe }} </p>
+                </div>
+            </div>
+
+            <div class="row row-cols-1 row-cols-sm-2 row-cols-md-4 g-sm-4 mx-3">
+                {% for service in about_info.services.all %}
+                <a class="text-decoration-none">
+                    <div class="col">
+                        <div class="card text-black text-center border-0">
+                            <i class="bi {{service.icon}}" style="font-size: 4rem;"></i>
+                            <div class="card-body">
+                                <p class="fw-bold">{{service.name}}</p>
+                                <p class="fw-light"><small>{{service.description|safe}}</small></p>
+                            </div>
+                        </div>
+                    </div>
+                </a>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+
+    <!-- Our team -->
+    <section id="team">
+        <div class="container text-center m-auto" style="font-family: Roboto Slab, serif">
+            <h1 class="text-md-start mb-5">The team</h1>
+            <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
+                {% for team_member in about_info.team.all %}
+                <div class="col d-flex justify-content-center">
+                    <div class="card border-0" style="max-width: 15rem;">
+                        {% if team_member.profile_image %}
+                        <img src="{{team_member.profile_image.url}}" alt=""
+                            class="team-profile-img">
+                        {% endif %}
+                        <div class="card-body">
+                            <strong>{{team_member.name}}</strong>
+                            <p class="fw-light"><small>{{team_member.position}}</small></p>
+                            <div class="btn-group" role="group" aria-label="">
+                                <!-- Linkedin -->
+                                {% if team_member.linkedin_link %}
+                                <a href="{{ team_member.linkedin_link }}" class="btn">
+                                    <i class="bi bi-linkedin fs-2"></i>
+                                </a>
+                                {% endif %}
+                                <!-- Instagram -->
+                                {% if team_member.ig_link %}
+                                <a href="{{ team_member.ig_link }}" class="btn">
+                                    <i class="bi bi-instagram fs-2"></i>
+                                </a>
+                                {% endif %}
+                                <!-- facebook -->
+                                {% if team_member.fb_link %}
+                                <a href="{{ team_member.fb_link }}" class="btn">
+                                    <i class="bi bi-facebook fs-2"></i>
+                                </a>
+                                {% endif %}
+                                <!-- X -->
+                                {% if team_member.x_link %}
+                                <a href="{{ team_member.x_link }}" class="btn">
+                                    <i class="bi bi-twitter-x fs-2"></i>
+                                </a>
+                                {% endif %}
+                                <!-- Email -->
+                                {% if team_member.email %}
+                                <a href="{{ team_member.email }}" class="btn">
+                                    <i class="bi bi-envelope-at fs-2"></i>
+                                </a>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+    
+    
+    <!-- Contact section -->
+    <section id="contact" class="my-5">
+        <div class="container">
+            <div class="row mt-0 pt-0">
+                <!-- contact -->
+                {% for contact in about_info.contacts.all %}   
+                <div class="col-md-4 text-center">
+                    <div class="mt-5 ps-3 pt-2">
+                        <p><strong class="me-2">email:</strong> {{contact.email}}</p>
+                        <p><strong class="me-2">tel:</strong> {{contact.telephone}}</p>
+                    </div>
+                    <div class="mb-3 ps-3">
+                        <p class="">
+                            <span>
+                                <i class="bi bi-mailbox2 fs-3 me-2"></i> {{contact.postal_address}}
+                            </span>
+                        </p>
+                        <p class="">
+                            <span>
+                                <i class="bi bi-geo-alt-fill fs-3 me-2"></i> {{contact.location}}
+                            </span>
+                        </p>
+                    </div>
+                    <div class="mb-3">
+                        <!-- social media links -->
+                        <div class="btn-group my-4 ps-3 pb-2">
+                            {% if contact.fb_link %}
+                            <a href="{{contact.fb_link}}" class="active me-3 text-white">
+                                <i class="bi bi-facebook fs-2"></i>
+                            </a>
+                            {% endif %}
+                            {% if contact.ig_link %}
+                            <a href="{{contact.ig_link}}" class="active text-white">
+                                <i class="bi bi-instagram fs-2"></i>
+                            </a>
+                            {% endif %}
+                        </div>
+
+                    </div>
+                </div>
+                {% endfor %}
+                <!-- enquiry -->
+            <div class="col-md-8 container">
+                {% for message in messages %}
+                    <p class="fw-semibold" style="color: #f0b323;">{{ message }}</p>
+                {% endfor %}
+                <h3 class="mb-3" data-aos="">Get in touch.</h3>
+                <form action="" method="post">
+                    {% csrf_token %}
+                    {{ form.as_p }}
+                    <div class="d-grid col-6 pt-3 mb-3">
+                        <button type="submit" class="btn btn-outline-warning">submit</button>
+                    </div>
+                    <!--
+        <div class="mb-3">
+            <input type="text" class="form-control border border-0 bg-light" id="name" name="name"
+                placeholder="name" required>
+        </div>
+        <div class="mb-3">
+            <input type="email" class="form-control border border-0 bg-light" id="email"
+                name="email" placeholder="email" required>
+        </div>
+        <div class="mb-3">
+            <input type="tel" class="form-control border border-0 bg-light id=" email" name="email"
+                placeholder="phone number (optional)">
+        </div>
+        <div class="mb-3">
+            <input type="text" class="form-control border border-0 bg-light" id="title" name="title"
+                placeholder="Title">
+        </div>
+        <div class="form-floating mb-3">
+            <textarea class="form-control bg-light" placeholder="Leave a message" id="message"
+                style="height: 100px" required></textarea>
+            <label for="message" class="text-dark">Message</label>
+        </div>
+        
+        -->
+                </form>
+            </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Review Section -->
+    <section id="review" class="view-height">
+        <div class="row mb-4 mt-5">
+            <!--title-->
+            <div class="col-sm-4 text-center mt-3 mb-5" style="font-family: Roboto Slab, serif">
+                <h1 class="fs-1 ps-4">What people say...</h1>
+                <!--<p class="fw-medium mx-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod </p>-->
+            </div>
+            <!--Reviews -->
+            <div class="col-sm-8">
+                {% for testimonial in about_info.testimonials.all %}
+                            <div class="card border-0 m-auto mb-4 bg-transparent  " style="max-width: 75%;">
+                                <div class="card-body">
+                                    <figure class="text-center">
+                                        <blockquote class="font-monospace">
+                                            <p>" {{ testimonial.testimonial|safe }} "</p>
+                                        </blockquote>
+                                        <figcaption class="blockquote-footer" style="color: #efb730;">
+                                            {{ testimonial.name }} <cite title="Source Title">{{ testimonial.organization }}</cite>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                                <!--
+                            }
+                        <img src="./assets/images/aatik-tasneem-7omHUGhhmZ0-unsplash.jpg" class="profile-img" alt="...">
+                        -->
+                            </div>
+                            {% endfor %}
+            </div>
+        </div>
+    </section>
+</main>
+<div class="pb-4 text-center">
+    <a href="#" class=" text-decoration-none" style="color: #003b5c;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+          </svg><spa class="ms-3 text-decoration-none" style="font-family: Roboto Slab, serif">Top</span>
+    </a>
+</div>
+
+{% include 'includes/footer.html' %}
+{% endblock content %}

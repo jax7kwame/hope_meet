@@ -1,0 +1,68 @@
+{% extends "base.html" %}
+
+{% block title %}{{ venue.name }} events | {% endblock title %}
+{% load static %}
+{% block content %}
+{% include 'includes/header.html' %}
+<div class="container mb-5" style="font-family: Roboto Slab, serif;">
+    <div class="my-5 text-start">
+        <h4>Events in <span style="color: #d86018;">{{venue.name}}</span></h4>
+    </div>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2 bg-white mt-2">
+        {% for event in venue.events.all %}
+        <div class="col">
+            <div class="card border-0">
+                {% if event.image %}
+                <a href="{% url 'event_details' event.category.slug event.slug %}">
+                    <img src="{{ event.image.url }}" class="card-img-top img-fit event-img" alt="event photo">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <center>
+                        <small class="card-text">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {{ event.remaining_days }}</small>
+                        <a href="{% url 'event_details' event.category.slug event.slug %}" class="text-decoration-none"
+                            style="color: #003b5c;">
+                            <p class="card-title fw-bold">{{ event.title }}</p>
+                        </a>
+                    </center>
+                    <div class="row mt-3 bg-transparent">
+                        <div class="col">
+
+                            <small class="card-text">
+                                <strong>Venue:</strong>
+                                <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none"
+                                    style="color: #d86018;">{{ event.venue.name }}</a>
+                            </small>
+                            <br>
+                            <small><strong>Location:</strong> {{ event.location }}, {{ event.county }}</small><br>
+                            <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold"
+                                style="color: #d86018;">
+                                <small>{{ event.category }}</small>
+                            </a><br>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <div class="text-center">
+                                <a href="{% url 'group_events' event.church_or_group.slug %}"
+                                    class="text-decoration-none" style="color: #003b5c;">
+                                    <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                                    <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+<!-- back to top -->
+<div class="pb-4 text-center">
+    <a href="#" class=" text-decoration-none" style="color: #003b5c; font-family: Roboto Slab, serif;">
+        <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
+            <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
+          </svg><spa class="ms-3 text-decoration-none">Top</span>
+    </a>
+</div>
+{% include 'includes/footer.html' %}
+{% endblock content %}

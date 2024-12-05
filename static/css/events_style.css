@@ -1,0 +1,12 @@
+/* EVENTS.HTML */
+/* EVENTS CATEGORIES */
+
+#events-categories {
+    background-color: blue;
+  }
+  
+#events-categories .events-categories-link {
+    color: #003b5c;
+    font-weight: bold;
+  }
+  

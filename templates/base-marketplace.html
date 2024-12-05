@@ -1,0 +1,150 @@
+
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+    {% block meta %}{% endblock %}
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="author" content="">
+    <link rel="shortcut icon" href="{% static 'images/logo/logo3_31_153930.png' %}">
+
+    <meta name="description" content="" />
+    <meta name="keywords" content="" />
+
+    <!-- CSS -->
+    <link href="{% static 'css/bootstrap.min.css' %}" rel="stylesheet">
+    
+    <link href="{% static 'css/style_marketplace.css' %}" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+    <title>hopemeet marketplace</title>
+</head>
+<body style="background-color: white;">
+    <header class="sticky-top">
+        <!-- Start Header/Navigation -->
+		<nav class="custom-navbar navbar navbar navbar-expand-md navbar-dark" arial-label="Furni navigation bar">
+
+			<div class="container">
+				<a class="navbar-brand" href="{% url 'marketplace:marketplace_home' %}">hopemeet store<span>.</span></a>
+
+				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>
+
+				<div class="collapse navbar-collapse" id="navbarNav">
+					<ul class="custom-navbar-nav navbar-nav ms-auto mb-2 mb-md-0">
+						<li class="nav-item active">
+							<a class="nav-link" href="{% url 'marketplace:marketplace_home' %}">home</a>
+						</li>
+						<li><a class="nav-link" href="{% url 'marketplace:products_list' %}">marketplace</a></li>
+                        <li><a class="nav-link" href="{% url 'about_marketplace' %}">About us</a></li>                       
+                        {% if user.is_authenticated %}
+                        <li><a class="nav-link" href="{% url 'conversation:inbox' %}">inbox</a></li>
+                        <li><a class="nav-link" href="{% url 'logout' %}">logout ({{ user.username }})</a></li>
+                        
+                        {% else %}
+                         <li><a class="nav-link" href="{% url 'login' %}">login</a></li>
+                         <li><a class="nav-link" href="{% url 'register' %}">Create account</a></li>
+                        {% endif %}
+                        <li><a class="nav-link" href="{% url 'home' %}">hopemeet events</a></li>
+                        
+					</ul>
+
+				</div>
+			</div>
+				
+		</nav>
+		<!-- End Header/Navigation -->
+    </header>
+
+    <main class="">
+    {% block content %}
+    {% endblock %}
+    </main>
+
+    <!-- Start Footer Section -->
+    <footer class="footer-section">
+        <div class="container relative">
+            <!--
+            <div class="sofa-img">
+                <img src="{% static 'images/sofa.png' %}" alt="Image" class="img-fluid">
+            </div>
+            -->
+
+            <div class="row g-5 mb-5">
+                <div class="col-lg-4">
+                    <div class="mb-4 footer-logo-wrap"><a href="#" class="footer-logo">hopemeet store<span>.</span></a></div>
+                    <p class="mb-4"></p>
+
+                    <ul class="list-unstyled custom-social">
+                        <li><a href="#"><i class="bi bi-facebook fs-1"></i></a></li>
+                        
+                        <li><a href="#"><i class="bi bi-instagram fs-1"></i></a></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-8">
+                    <div class="row links-wrap">
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="{% url 'about_marketplace' %}">About us</a></li>
+                            <li><a href="{% url 'contact_us' %}">Contact us</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="{% url 'marketplace:vendors_list' %}">Vendors</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                                <li><a href="#">Privacy Policy</a></li>
+                            </ul>
+                        </div>
+
+                        <div class="col-6 col-sm-6 col-md-3">
+                            <ul class="list-unstyled">
+                            <!-- Fill with anything later -->
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="border-top copyright">
+                <div class="row pt-4">
+                    <div class="col-lg-6">
+                        <p class="mb-2 text-center text-lg-start">Copyright &copy;<script>document.write(new Date().getFullYear());</script>. hopemeet. All Rights Reserved. Credits: <a href="https://untree.co">Untree.co</a>
+        </p>
+                    </div>
+
+                    <div class="col-lg-6 text-center text-lg-end">
+                        <ul class="list-unstyled d-inline-flex ms-auto">
+                            <li class="me-4"><a href="">Terms &amp; Conditions</a></li>
+                            <li><a href="">Privacy Policy</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </footer>
+    <!-- End Footer Section -->	
+    <script src="{% static 'js/jquery.js' %}"></script>
+    <script>
+    </script>
+
+    <script src="{% static 'js/custom.js' %}"></script>
+   
+    <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    
+
+</body>
+
+</html>
