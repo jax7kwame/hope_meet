@@ -1,5 +1,7 @@
 from django.contrib import admin
-from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages
+from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages, Union, Conference
+
+
 
 
 class SpeakerAdmin(admin.TabularInline):
@@ -59,3 +61,5 @@ admin.site.register(Venue, VenueAdmin)
 admin.site.register(ChurchOrGroup, ChurchOrGroupAdmin)
 admin.site.register(VenueType)
 admin.site.register(County, CountyAdmin)
+admin.site.register(Union)
+admin.site.register(Conference)

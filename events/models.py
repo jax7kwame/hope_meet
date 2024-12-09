@@ -73,14 +73,38 @@ class VenueImages(models.Model):
     class Meta:
         verbose_name_plural = 'Venue Images'
 
+# conference
+class Conference(models.Model):
+    name = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ('name',)
+
+# union
+class Union(models.Model):
+    name = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.name
+    
+    class Meta:
+        ordering = ('name',)
+
 class ChurchOrGroup(models.Model):
     name = models.CharField(max_length=100)
     slug = models.SlugField(blank=True)
     logo = models.ImageField(upload_to='uploads/group_logos', blank=True)
+    district = models.CharField(max_length=100, blank=True)
+    conference = models.ForeignKey(Conference, null=True, on_delete=models.SET_NULL, blank=True)
+    union = models.ForeignKey(Union, null=True, on_delete=models.SET_NULL, blank=True)
     website_url = models.URLField(blank=True)
     fb_link = models.CharField('facebook link', max_length=255, blank=True)
     ig_link = models.CharField('instagram link', max_length=255, blank=True)
     x_link = models.CharField('x link', max_length=255, blank=True)
+    youtube_link = models.CharField('youtube link', max_length=255, blank=True)
 
     def __str__(self):
         return self.name
@@ -102,8 +126,6 @@ class Event(models.Model):
     starting_time = models.TimeField(auto_now=False, auto_now_add=False)
     church_or_group = models.ForeignKey(ChurchOrGroup, related_name='events', null=True, on_delete=models.SET_NULL)
 
-    district = models.CharField(max_length=100, blank=True)
-    conference = models.CharField(max_length=100, blank=True)
     description = HTMLField(null=True)
     venue = models.ForeignKey(Venue, blank=True, related_name="events", null=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=100)
