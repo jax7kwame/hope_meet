@@ -14,3 +14,4 @@ class ContactUs(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
+        verbose_name_plural = 'contact us'

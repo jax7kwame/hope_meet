@@ -8,36 +8,16 @@
     <section id="venue-carousel" class="container-fluid">
         <div id="carouselExampleAutoplaying" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
-                {% if venue.image1 %}
-                <div class="carousel-item active">
-                    <img src="{{ venue.image1.url }}"
-                        class="d-block w-100 carousel-img" alt="...">
-                </div>
+                {% if venue_images %}
+                    {% for venue_image in venue_images %}
+                    <div class="carousel-item active">
+                        <img src="{{ venue_image.image.url }}"
+                            class="d-block w-100 carousel-img" alt="...">
+                    </div>
+                    {% endfor %}
                 {% else %}
-                <div class="carousel-item active">
+                    <div class="carousel-item active">
                     <img src="{% static 'images/defaults/Location_icon_from_Noun_Project.png'%}"
-                        class="d-block w-100 carousel-img" alt="...">
-                </div>
-                {% endif %}
-                {% if venue.image2 %}
-                <div class="carousel-item">
-                    <img src="{{ venue.image2.url }}"
-                        class="d-block w-100 carousel-img" alt="...">
-                </div>
-                {% else %}
-                <div class="carousel-item active">
-                    <img src="{% static 'images/defaults/location-pin-vector-icon-2.jpg'%}"
-                        class="d-block w-100 carousel-img" alt="...">
-                </div>
-                {% endif %}
-                {% if venue.image3 %}
-                <div class="carousel-item">
-                    <img src="{{ venue.image3.url }}"
-                        class="d-block w-100 carousel-img" alt="...">
-                </div>
-                {% else %}
-                <div class="carousel-item active">
-                    <img src="{% static 'images/defaults/location-pin-vector-icon.jpg'%}"
                         class="d-block w-100 carousel-img" alt="...">
                 </div>
                 {% endif %}

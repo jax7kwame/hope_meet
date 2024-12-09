@@ -1,5 +1,6 @@
 {% extends "base.html" %}
 {% load social_share %}
+{% load static %}
 {% block title %}{{ event.title }}{% endblock title %}
 
 {% block content %}
@@ -166,6 +167,9 @@
                                 <div class="card border-0" style="max-width: 15rem;">
                                     {% if speaker.image %}
                                     <img src="{{speaker.image.url}}" alt="speaker image"
+                                        class="speaker-profile-img">
+                                    {% else %}
+                                    <img src="{% static './images/defaults/speaker/profile.PNG' %}" alt="speaker image"
                                         class="speaker-profile-img">
                                     {% endif %}
                                     <div class="card-body">

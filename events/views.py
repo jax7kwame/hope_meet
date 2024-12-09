@@ -135,9 +135,11 @@ def venues_view(request):
 # Venue details view
 def venue_detail_view(request, slug):
     venue = get_object_or_404(Venue, slug=slug)
+    venue_images = venue.venue_images.all()
 
     context = {
         'venue': venue,
+        'venue_images': venue_images,
     }
 
     return render(request, 'venue.html', context)

@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner
+from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages
 
 
 class SpeakerAdmin(admin.TabularInline):
@@ -27,8 +27,12 @@ class EventAdmin(admin.ModelAdmin):
     }
 
 
+class VenueImagesAdmin(admin.TabularInline):
+    model = VenueImages
+
 class VenueAdmin(admin.ModelAdmin):
-    list_display = ['name', 'type', 'phone']
+    inlines = [VenueImagesAdmin,]
+    list_display = ['name', 'venue_type', 'phone']
     search_fields = ('name', 'location', 'type', 'address')
     prepopulated_fields = {
         'slug': ('name',)

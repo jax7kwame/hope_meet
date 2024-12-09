@@ -12,6 +12,7 @@ class Services(models.Model):
     
     class Meta:
         ordering = ('name',)
+        verbose_name_plural = "services"
 
 
 # team
@@ -63,6 +64,9 @@ class About(models.Model):
 
     def __str__(self):
         return self.name
+    
+    class Meta:
+        verbose_name_plural = "about"
     
     #venue_type = models.ForeignKey(VenueType, related_name="venue_types", blank=True, null=True, on_delete=models.SET_NULL)
 

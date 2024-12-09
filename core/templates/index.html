@@ -29,7 +29,7 @@
                             <a href="{% url 'category' category.slug %}" class="text-decoration-none  text-white">
                                 <span>
                                     <i class="{{ category.icon_style }} fs-2"></i>
-                                    <small class="ms-3">{{ category.title }} ({{ category.events.all.count }} event{{ category.events.all.count|pluralize }})</small>
+                                    <small class="ms-3 text-capitalize">{{ category.title }} ({{ category.events.all.count }} event{{ category.events.all.count|pluralize }})</small>
                                 </span>
                             </a>
                         </li>
@@ -40,124 +40,46 @@
         </div>
     </div>
 
-    <!-- Featured-->
-    <section id="featured">
-        <div class="container-fluid mt-5">
-            <div class="row row-cols-1 row-cols-lg-1">
-                {% for event in featured_events %}
-                <div class="col">
-                    <!-- event -->
-                    <div class="card mb-3 border-0" style="max-width: 100%;">
-                        <div class="row g-0">
-                            <!-- image -->
-                            <div class="col-md-7">
-                                {% if event.image %}
-                                <a href="{% url 'event_details' event.category.slug event.slug %}"><img
-                                        src="{{ event.image.url }}" class="img-fluid featured-event-img"
-                                        alt="event image"></a>
-                                {% endif %}
-                            </div>
-                            <!-- details -->
-                            <div class="col-md-5 d-flex align-items-center">
-                                <div class="card-body">
-                                    <center class="">
-                                        <!-- Event title -->
-                                        <a href="{% url 'event_details' event.category.slug event.slug %}"
-                                            class="text-decoration-none" style="color: #003b5c;">
-                                            <p class="card-title fw-bold">{{ event.title }}</p>
-                                        </a>
-                                        <!-- Event date -->
-                                        <small class="card-text">{{event.starting_date|date:'D' }},
-                                            {{event.starting_date}} {{event.remaining_days}}</small>
-                                    </center>
-                                    <div class="row mt-4">
-                                        <div class="col">
-                                            <!-- venue -->
-                                            <small class="card-text">
-                                                <strong>Venue:</strong>
-                                                <a href="{% url 'venue_detail' event.venue.slug %}"
-                                                    class="text-decoration-none" style="color: #d86018;">{{ event.venue }}</a>
-                                            </small>
-                                            <br>
-                                            <!-- location -->
-                                            <small><strong>Location:</strong> {{ event.location }}</small><br>
-                                            <!-- county -->
-                                            <small>
-                                                <strong>County:
-                                                    <a href="{% url 'county' event.county_local.slug %}"
-                                                        class="text-decoration-none fw-bold" style="color: #d86018;">{{ event.county_local }}</a>
-                                                </strong>
-                                            </small>
-                                            <!-- Category -->
-                                            <br>
-                                            <a href="{% url 'category' event.category.slug %}"
-                                                class="text-decoration-none fw-bold" style="color: #d86018;">
-                                                <small>{{ event.category }}</small>
-                                            </a><br>
-                                        </div>
-                                        <div class="col d-flex justify-content-center align-items-center">
-                                            <!-- Church or group -->
-                                            <div class="text-center">
-                                                <a href="{% url 'group_events' event.church_or_group.slug %}"
-                                                    class="text-decoration-none" style="color: #003b5c;">
-                                                    <img class="logo-img" src="{{ event.church_or_group.logo.url }}"
-                                                        alt="group logo"><br>
-                                                    <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
-                                                </a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {% endfor %}
-            </div>
-        </div>
-    </section>
 
-    <div class="my-5">
-        <center>
-            <a href="{% url 'events' %}" class="events-link">all events</a>
-        </center>
+<!-- Featured events -->
+<section id="featured-section" class="">
+    <!-- Heading -->
+     <!--
+    <div class="mb-4 text-center">
+        <h3>Featured event</h3>
     </div>
-
-    <!-- this month's events section -->
-    <section id="all-events-section" class="container my-3" style="font-family: Roboto Slab, serif">
-        <!-- Heading -->
-        <div class="mb-5 text-center" data-aos="fade-right">
-            <h3>This month's events</h3>
-        </div>
-        <div data-aos="fade-up" data-aos-duration="2000" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
-            {% for event in events_by_month %}
-            <div class="col">
-                <div class="card border-0">
+    -->
+    <div class="container-fluid mt-5">
+        {% for event in featured_events %}
+        <div class="card mb-3 border-0" style="max-width: 100%;">
+            <div class="row g-0">
+                <div class="col-md-7">
                     {% if event.image %}
-                    <a href="{% url 'event_details' event.category.slug event.slug %}">
-                        <img src="{{ event.image.url }}" class="card-img-top img-fit event-img" alt="event photo">
-                    </a>
+                    <a href="{% url 'event_details' event.category.slug event.slug %}"><img src="{{ event.image.url }}"
+                            class="img-fluid featured-event-img" alt="event image" style="border-radius: 25px;"></a>
                     {% endif %}
+                </div>
+                <div class="col-md-5 ps-3 d-flex align-items-center">
                     <div class="card-body">
-                        <small class="card-text"></small>
                         <center>
-                            <a href="{% url 'event_details' event.category.slug event.slug %}"
-                                class="text-decoration-none" style="color: #003b5c;">
+                            <!-- Event date -->
+                            <small class="card-text">{{event.starting_date|date:'D' }}, {{event.starting_date}}
+                                {{event.remaining_days}}</small>
+                            <!-- Event title -->
+                            <a href="event.html" class="text-decoration-none" style="color: #003b5c;">
                                 <p class="card-title fw-bold">{{ event.title }}</p>
                             </a>
-                            <small class="card-text">{{ event.starting_date|date:'D' }}, {{ event.starting_date }}
-                                {{event.remaining_days}}</small>
                         </center>
                         <div class="row mt-3">
                             <div class="col">
+                                <!-- venue -->
                                 <small class="card-text">
                                     <strong>Venue:</strong>
                                     <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none"
-                                        style="color: #d86018;">{{ event.venue.name }}</a>
+                                        style="color: #d86018;">{{ event.venue }}</a>
                                 </small>
                                 <br>
-                                <small><strong>Location:</strong> {{ event.location }}</small>
-                                <br>
+                                <small><strong>Location: </strong>{{ event.location }}</small><br>
                                 <small>
                                     <strong>County:
                                         <a href="{% url 'county' event.county_local.slug %}"
@@ -165,16 +87,18 @@
                                     </strong>
                                 </small>
                                 <br>
-                                <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold"
+                                <!-- Category -->
+                                <a href="category.html" class="text-decoration-none fw-bold"
                                     style="color: #d86018;">
                                     <small>{{ event.category }}</small>
                                 </a><br>
                             </div>
                             <div class="col d-flex justify-content-center align-items-center">
+                                <!-- Church or group -->
                                 <div class="text-center">
-                                    <a href="{% url 'group_events' event.church_or_group.slug %}"
-                                        class="text-decoration-none" style="color: #003b5c;">
-                                        <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                                    <a href="{% url 'group_events' event.church_or_group.slug %}" class="text-decoration-none" style="color: #003b5c;">
+                                        <img class="logo-img" src="{{ event.church_or_group.logo.url }}"
+                                            alt="group logo"><br>
                                         <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
                                     </a>
                                 </div>
@@ -183,27 +107,103 @@
                     </div>
                 </div>
             </div>
-            {% empty %}
-            <div class="mb-4 text-center">
-                <p>No events for this month at the moment.</p>
-            </div>
-            {% endfor %}
         </div>
-        {% if events_by_month|length > 0 %}
-        <div class="my-5">
-            <center>
-                <a href="{% url 'month_events' %}" class="btn btn-outline-warning border-2 fw-bold">view all</a>
-            </center>
+        {% empty %}
+        <div class="mb-4 text-center">
+            <p>No featured events at the moment.</p>
         </div>
-        {% endif %}
+        {% endfor %}
+    </div>
+</section>
 
-        
-    </section>
+
+<div class="my-5">
+    <center>
+        <a href="{% url 'events' %}" class="events-link">all events</a>
+    </center>
+</div>
+
+<!-- this month's events section -->
+<section id="all-events-section" class="container my-3" style="font-family: Roboto Slab, serif">
+    <!-- Heading -->
+    <div class="mb-5 text-center" data-aos="fade-right">
+        <h3>This month's events</h3>
+    </div>
+    <div data-aos="fade-up" data-aos-duration="2000" class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        {% for event in events_by_month %}
+        <div class="col">
+            <div class="card border-0">
+                {% if event.image %}
+                <a href="{% url 'event_details' event.category.slug event.slug %}">
+                    <img src="{{ event.image.url }}" class="card-img-top img-fit event-img" alt="event photo">
+                </a>
+                {% endif %}
+                <div class="card-body">
+                    <small class="card-text"></small>
+                    <center>
+                        <a href="{% url 'event_details' event.category.slug event.slug %}"
+                            class="text-decoration-none" style="color: #003b5c;">
+                            <p class="card-title fw-bold">{{ event.title }}</p>
+                        </a>
+                        <small class="card-text">{{ event.starting_date|date:'D' }}, {{ event.starting_date }}
+                            {{event.remaining_days}}</small>
+                    </center>
+                    <div class="row mt-3">
+                        <div class="col">
+                            <small class="card-text">
+                                <strong>Venue:</strong>
+                                <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none"
+                                    style="color: #d86018;">{{ event.venue.name }}</a>
+                            </small>
+                            <br>
+                            <small><strong>Location:</strong> {{ event.location }}</small>
+                            <br>
+                            <small>
+                                <strong>County:
+                                    <a href="{% url 'county' event.county_local.slug %}"
+                                        class="text-decoration-none fw-bold" style="color: #d86018;">{{ event.county_local }}</a>
+                                </strong>
+                            </small>
+                            <br>
+                            <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold"
+                                style="color: #d86018;">
+                                <small>{{ event.category }}</small>
+                            </a><br>
+                        </div>
+                        <div class="col d-flex justify-content-center align-items-center">
+                            <div class="text-center">
+                                <a href="{% url 'group_events' event.church_or_group.slug %}"
+                                    class="text-decoration-none" style="color: #003b5c;">
+                                    <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                                    <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% empty %}
+        <div class="mb-4 text-center">
+            <p>No events for this month at the moment.</p>
+        </div>
+        {% endfor %}
+    </div>
+    {% if events_by_month|length > 0 %}
+    <div class="my-5">
+        <center>
+            <a href="{% url 'month_events' %}" class="btn btn-outline-warning border-2 fw-bold">view all</a>
+        </center>
+    </div>
+    {% endif %}
+
+    
+</section>
 
 <!-- Brand section -->
 <section id="brand-section">
     <div class="container">
-        <div class="row row-cols-1 row-cols-md-1">
+        <div class="row">
             <!-- logo -->
             <div class="col d-flex justify-content-end align-items-center">
                 <div class="">

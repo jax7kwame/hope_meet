@@ -5,6 +5,18 @@ from datetime import date, datetime
 from tinymce.models import HTMLField
 
 
+# county
+class County(models.Model):
+    name = models.CharField(max_length=100)
+    slug = models.SlugField()
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering=("name",) 
+        verbose_name_plural = "Counties"
+
 
 
 # events category model
@@ -36,13 +48,11 @@ class VenueType(models.Model):
 class Venue(models.Model):
     name = models.CharField(max_length=255)
     slug = models.SlugField(blank=True)
-    image1 = models.ImageField(upload_to='uploads/venue', blank=True, null= True)
-    image2 = models.ImageField(upload_to='uploads/venue', blank=True, null= True)
-    image3 = models.ImageField(upload_to='uploads/venue', blank=True, null= True)
-    type = models.CharField('Venue type', max_length=100, blank=True)
+    image = models.ImageField(upload_to='uploads/venue', blank=True, null= True)
+
     venue_type = models.ForeignKey(VenueType, related_name="venue_types", blank=True, null=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=100)
-    county = models.CharField(max_length=100)
+    county = models.ForeignKey(County, blank=True, null=True, related_name="venues", on_delete=models.SET_NULL)
     address = models.CharField(max_length=100, blank=True)
     phone = PhoneField(blank=True, help_text='Contact phone number')
     email = models.EmailField(blank=True)
@@ -50,12 +60,18 @@ class Venue(models.Model):
     fb_link = models.CharField('facebook link', max_length=255, blank=True)
     ig_link = models.CharField('instagram link', max_length=255, blank=True)
     x_link = models.CharField('x link', max_length=255, blank=True)
-    description = HTMLField(null=True)
-    created_by = models.IntegerField(blank=False, default=1)
+    description = HTMLField(null=True, blank=True)
 
     def __str__(self):
         return self.name
 
+class VenueImages(models.Model):
+    image = models.ImageField(upload_to="uploads/venue", blank=True, null=True)
+    venue = models.ForeignKey(Venue, on_delete=models.SET_NULL, null=True, related_name="venue_images")
+    date = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        verbose_name_plural = 'Venue Images'
 
 class ChurchOrGroup(models.Model):
     name = models.CharField(max_length=100)
@@ -72,18 +88,6 @@ class ChurchOrGroup(models.Model):
     class Meta:
         ordering = ('name',)
 
-# county
-class County(models.Model):
-    name = models.CharField(max_length=100)
-    slug = models.SlugField()
-
-    def __str__(self):
-        return self.name
-
-    class Meta:
-        ordering=("name",) 
-        verbose_name_plural = "Counties"
-
 
 # events model table
 class Event(models.Model):
@@ -98,12 +102,12 @@ class Event(models.Model):
     starting_time = models.TimeField(auto_now=False, auto_now_add=False)
     church_or_group = models.ForeignKey(ChurchOrGroup, related_name='events', null=True, on_delete=models.SET_NULL)
 
-    district = models.CharField(max_length=100)
-    conference = models.CharField(max_length=100)
+    district = models.CharField(max_length=100, blank=True)
+    conference = models.CharField(max_length=100, blank=True)
     description = HTMLField(null=True)
     venue = models.ForeignKey(Venue, blank=True, related_name="events", null=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=100)
-    county = models.CharField(max_length=100)
+    #county = models.CharField(max_length=100)
     county_local = models.ForeignKey(County, blank=True, null=True, related_name="events", on_delete=models.SET_NULL)
 
 

@@ -39,9 +39,9 @@
                 {% for venue in page_obj %}
                 <div class="col">
                     <div class="card border-0">
-                        {% if venue.image1 %}
+                        {% if venue.image %}
                         <a href="{% url 'venue_detail' venue.slug %}">
-                            <img src="{{ venue.image1.url }}" class="card-img-top venue-img" alt="venue image">
+                            <img src="{{ venue.image.url }}" class="card-img-top venue-img" alt="venue image">
                         </a>
                         {% else %} 
                         <a href="{% url 'venue_detail' venue.slug %}">

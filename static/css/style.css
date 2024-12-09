@@ -660,12 +660,8 @@ nav input:focus {
 }
 
 @media (min-width: 300px) {
-  .featured-card {
-    min-height: 50vh;
-  }
 
   .featured-card .card-img {
-    min-height: 50vh;
     object-fit: cover;
   }
 }
