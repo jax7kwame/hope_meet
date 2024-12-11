@@ -194,10 +194,21 @@ class Event(models.Model):
         else:
             return "1 day event"
 
+# event photo gallery
+class PhotoGallery(models.Model):
+    event =  models.ForeignKey(Event, on_delete=models.CASCADE, related_name="event_gallery")
+    image = models.ImageField(upload_to="uploads/gallery", blank=True, null=True)
+
+    def __str__(self):
+        return self.event.title
+    
+    class Meta:
+        verbose_name_plural = 'Photo gallery'
+
 
 # speaker
 class Speaker(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, related_name="event_speakers")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, related_name="event_speakers")
     image = models.ImageField(upload_to='uploads/speakers', blank=True, null= True)
     title = models.CharField(max_length=50, blank=True)
     name = models.CharField(max_length=100)
@@ -210,7 +221,7 @@ class Speaker(models.Model):
 
 # sponsors and patners
 class SponsorPartner(models.Model):
-    event = models.ForeignKey(Event, on_delete=models.SET_NULL, null=True, related_name="event_sponsors_partners")
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, related_name="event_sponsors_partners")
     logo = models.ImageField(upload_to='uploads/sponsors_partners', blank=True, null= True)
     name = models.CharField(max_length=50)
 

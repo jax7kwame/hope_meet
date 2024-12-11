@@ -1,8 +1,10 @@
 from django.contrib import admin
-from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages, Union, Conference
+from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages, Union, Conference, PhotoGallery
 
 
 
+class PhotoGalleryAdmin(admin.TabularInline):
+    model = PhotoGallery
 
 class SpeakerAdmin(admin.TabularInline):
     model = Speaker
@@ -19,7 +21,7 @@ class EventCategoryAdmin(admin.ModelAdmin):
 
 
 class EventAdmin(admin.ModelAdmin):
-    inlines = [SpeakerAdmin, SponsorPartnerAdmin]
+    inlines = [SpeakerAdmin, SponsorPartnerAdmin, PhotoGalleryAdmin]
     list_display = ['title', 'category', 'post_event', 'featured', 'starting_date', 'ending_date', 'county_local']
     list_filter = ('category', 'created_at', 'church_or_group', 'manager')
     search_fields = ('title', 'district', 'description', 'manager')

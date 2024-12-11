@@ -71,13 +71,14 @@ def event_detail_view(request, category_slug, slug):
     event = get_object_or_404(Event, slug=slug)
     speakers = event.event_speakers.all()
     sponsors_partners = event.event_sponsors_partners.all()
-    print(sponsors_partners)
+    photo_gallery = event.event_gallery.all()
     #group = get_object_or_404(ChurchOrGroup, slug=slug)
 
     context = {
         "event": event,
         'speakers': speakers,
-        'sponsors_partners': sponsors_partners
+        'sponsors_partners': sponsors_partners,
+        'photo_gallery': photo_gallery
         #"group": group
     }
 
