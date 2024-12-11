@@ -63,8 +63,11 @@
                     <div class="card-body">
                         <center>
                             <!-- Event date -->
-                            <small class="card-text">{{event.starting_date|date:'D' }}, {{event.starting_date}}
-                                {{event.remaining_days}}</small>
+                            <small class="card-text">{{event.starting_date|date:'D' }}, {{event.starting_date}} {% if event.ending_date %}- {{ event.ending_date|date:'D' }}, {{ event.ending_date }}{% endif %}
+                                </small>
+                            <br>
+                            <small>{{event.remaining_days}}</small>
+                                
                             <!-- Event title -->
                             <a href="event.html" class="text-decoration-none" style="color: #003b5c;">
                                 <p class="card-title fw-bold">{{ event.title }}</p>
@@ -88,7 +91,7 @@
                                 </small>
                                 <br>
                                 <!-- Category -->
-                                <a href="category.html" class="text-decoration-none fw-bold"
+                                <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold"
                                     style="color: #d86018;">
                                     <small>{{ event.category }}</small>
                                 </a><br>

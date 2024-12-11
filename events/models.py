@@ -123,7 +123,7 @@ class Event(models.Model):
     
     starting_date = models.DateField()
     ending_date = models.DateField(blank=True, null=True)
-    starting_time = models.TimeField(auto_now=False, auto_now_add=False)
+    starting_time = models.TimeField(auto_now=False, auto_now_add=False, blank=True)
     church_or_group = models.ForeignKey(ChurchOrGroup, related_name='events', null=True, on_delete=models.SET_NULL)
 
     description = HTMLField(null=True)
@@ -203,6 +203,7 @@ class Speaker(models.Model):
     name = models.CharField(max_length=100)
     organization = models.CharField(max_length=100, blank=True)
     role = models.CharField(max_length=50)
+    topic = models.CharField(max_length=50, blank=True)
 
     def __str__(self):
         return self.name

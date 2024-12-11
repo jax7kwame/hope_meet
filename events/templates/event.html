@@ -16,7 +16,9 @@
                 class="" srcset="">
             <div class="banner-overlay">
                 <h5 class="display-5 fw-semibold">{{ event.title }}</h5>
-                <small class="fw-semibold">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {{ event.remaining_days }}</small>
+                <small class="fw-semibold">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {% if event.ending_date %}- {{ event.ending_date|date:'D' }}, {{ event.ending_date }}{% endif %}</small>
+                <br>
+                <small class="fw-semibold">{{ event.remaining_days }}</small>
             </div>
         </div>
         {% endif %}
@@ -41,7 +43,7 @@
             <div class="col-md-4 d-flex justify-content-center">
                 <div class="text-center">
                     <a href="{% url 'group_events' event.church_or_group.slug %}" class="text-decoration-none" style="color: #003b5c;">
-                        <img class="logo-img" src="{{ event.church_or_group.logo.url }}" alt=""><br>
+                        <img class="logo-img mb-2" src="{{ event.church_or_group.logo.url }}" alt=""><br>
                         <span><small class="ms-2 fw-bold">{{ event.church_or_group }}</small></span>
                         <br>
                         <!-- social media links -->
@@ -83,7 +85,7 @@
                             </a>
                             {% endif %}
                             {% if event.church_or_group.ig_link %}
-                            <a href="{{ event.church_or_group.ig_link }}" class="active text-black" target="_blank">
+                            <a href="{{ event.church_or_group.ig_link }}" class="active text-black me-3" target="_blank">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="23" fill="currentColor"
                                     class="bi bi-instagram" viewBox="0 0 16 16">
                                     <path
@@ -93,7 +95,7 @@
                             {% endif %}
                             {% if event.church_or_group.youtube_link %}
                             <a href="{{ event.church_or_group.youtube_link }}" class="active text-black" target="_blank">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-youtube" width="23" viewBox="0 0 16 16">
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" class="bi bi-youtube" width="23" viewBox="0 0 16 16">
                                     <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.01 2.01 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.01 2.01 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31 31 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.01 2.01 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A100 100 0 0 1 7.858 2zM6.4 5.209v4.818l4.157-2.408z"/>
                                 </svg>
                             </a>
@@ -165,7 +167,7 @@
                 <!-- speaker -->
                 <section class="mt-4" id="speakers">
                     {% if speakers %}
-                    <div class="container text-center m-auto" style="font-family: Roboto Slab, serif">
+                    <div class="container text-center m-auto">
                         <h5 class="text-md-center text-uppercase mb-3">Event speakers</h5>
                         <div class="w-25 mb-5" style="height: 5px; background-color: #003b5c;"></div>
                         <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
@@ -183,6 +185,9 @@
                                         <button class="speaker-role-btn d-flex justify-content-start">{{speaker.role}}</button>
                                         <strong><small>{{speaker.title}} {{speaker.name}}</small></strong>
                                         <p class="fw-light"><small>{{speaker.organization}}</small></p>
+                                        {% if speaker.topic %}
+                                        <span class="fw-bold"><small>Topic: {{speaker.topic}}</small></span>
+                                        {% endif %}
                                         
                                         
                                     </div>
