@@ -70,6 +70,7 @@ def events_view(request):
 # event detail view
 def event_detail_view(request, category_slug, slug):
     event = get_object_or_404(Event, slug=slug)
+    similar_events = Event.objects.filter(category=event.category)
     speakers = event.event_speakers.all()
     sponsors_partners = event.event_sponsors_partners.all()
     photo_gallery = event.event_gallery.all()
@@ -77,6 +78,7 @@ def event_detail_view(request, category_slug, slug):
 
     context = {
         "event": event,
+        'similar_events': similar_events,
         'speakers': speakers,
         'sponsors_partners': sponsors_partners,
         'photo_gallery': photo_gallery

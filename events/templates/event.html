@@ -208,28 +208,28 @@
             </div>
             <!-- More from the organizer -->
             <div id="more-events" class="col-md-4">
-                <center class="mb-4"><strong>More from the church or group</strong></center>
-                {% for group_event in event.church_or_group.events.all|slice:":3" %}
-                {% if group_event.id != event.id %}
+                <center class="mb-4"><strong>Similar events</strong></center>
+                {% for similar_event in similar_events|slice:":3" %}
+                {% if similar_event.id != event.id %}
                 <div class="card m-auto mt-1 border-0" style="width: 20rem;">
-                    {% if group_event.image %}
-                    <a href="{% url 'event_details' group_event.category.slug group_event.slug %}">
-                        <img src="{{ group_event.image.url }}" class="card-img-top"
+                    {% if similar_event.image %}
+                    <a href="{% url 'event_details' similar_event.category.slug similar_event.slug %}">
+                        <img src="{{ similar_event.image.url }}" class="card-img-top"
                         alt="...">
                     </a>
                     {% endif %}
                     <div class="card-body">
-                        <a href="{% url 'event_details' group_event.category.slug group_event.slug %}" class="text-decoration-none">
-                            <strong class="card-title">{{ group_event.title }}</strong>
+                        <a href="{% url 'event_details' similar_event.category.slug similar_event.slug %}" class="text-decoration-none">
+                            <strong class="card-title">{{ similar_event.title }}</strong>
                         </a>
                         <br>
-                        <small><strong>Date: </strong>{{ group_event.starting_date|date:'D' }}, {{ group_event.starting_date }} {{ group_event.remaining_days }}</small>
+                        <small><strong>Date: </strong>{{ similar_event.starting_date|date:'D' }}, {{ similar_event.starting_date }} {{ similar_event.remaining_days }}</small>
                         <br>
-                        <small><strong>Venue: </strong><a href="{% url 'venue_detail' group_event.venue.slug %}" class="text-decoration-none" style="color: #d86018;">{{ group_event.venue }}</a></small>
+                        <small><strong>Venue: </strong><a href="{% url 'venue_detail' similar_event.venue.slug %}" class="text-decoration-none" style="color: #d86018;">{{ similar_event.venue }}</a></small>
                     </div>
                 </div>
                 {% endif %}
-                {% endfor%}
+                {% endfor %}
                 <div class="my-5">
                     <center>
                         <a href="{% url 'group_events' event.church_or_group.slug %}" class="events-link">all {{ event.church_or_group}} events</a>
