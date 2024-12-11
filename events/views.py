@@ -5,6 +5,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, JsonResponse
 from django.core.paginator import Paginator
 from django.urls import reverse
+from taggit.models import Tag
 
 from datetime import datetime
 from .models import Event, EventCategory, Venue, ChurchOrGroup, County
@@ -83,6 +84,26 @@ def event_detail_view(request, category_slug, slug):
     }
 
     return render(request, 'event.html', context)
+
+
+# tags and products
+def tag_event_list(request, tag_slug=None):
+    events = Event.objects.filter(post_event=True).order_by('-id')
+
+    tag = None
+
+    if tag_slug:
+        tag = get_object_or_404(Tag, slug=tag_slug)
+        events = events.filter(tags__in=[tag])
+    
+    context = {
+        'events': events,
+        'tag': tag
+    }
+
+    return render(request, 'tag-events.html', context)
+
+
 
 # category view
 def category_view(request, slug):

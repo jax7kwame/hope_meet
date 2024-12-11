@@ -3,6 +3,7 @@ from account.models import Account
 from phone_field import PhoneField
 from datetime import date, datetime
 from tinymce.models import HTMLField
+from taggit.managers import TaggableManager
 
 
 # county
@@ -119,21 +120,16 @@ class Event(models.Model):
     slug = models.SlugField()
     image = models.ImageField(upload_to='uploads/events', blank=True)
     category = models.ForeignKey(EventCategory, related_name="events", null=True, on_delete=models.SET_NULL)
-    
-    
     starting_date = models.DateField()
     ending_date = models.DateField(blank=True, null=True)
     starting_time = models.TimeField(auto_now=False, auto_now_add=False, blank=True)
     church_or_group = models.ForeignKey(ChurchOrGroup, related_name='events', null=True, on_delete=models.SET_NULL)
-
     description = HTMLField(null=True)
+    tags = TaggableManager(blank=True)
     venue = models.ForeignKey(Venue, blank=True, related_name="events", null=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=100)
     #county = models.CharField(max_length=100)
     county_local = models.ForeignKey(County, blank=True, null=True, related_name="events", on_delete=models.SET_NULL)
-
-
-
     created_at = models.DateTimeField(auto_now_add=True)
     manager = models.ForeignKey(Account, blank=True, null=True, on_delete=models.SET_NULL, related_name="events")
     featured = models.BooleanField(default=False)
@@ -143,7 +139,6 @@ class Event(models.Model):
 
     class Meta:
         ordering = ('-created_at',)
-
 
     def __str__(self):
         return self.title
@@ -156,7 +151,6 @@ class Event(models.Model):
     def num_dislikes(self):
         return self.dislikes.count()
 
-    
     @property
     def remaining_days(self):
         d1 = datetime.strptime(str(self.starting_date), "%Y-%m-%d")
