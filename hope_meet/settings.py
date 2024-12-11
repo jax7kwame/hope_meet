@@ -37,6 +37,7 @@ INSTALLED_APPS = [
     'django_advanced_password_validation',
     'anymail',
     'taggit',
+    'admin_honeypot',
 
     #custom
     'account',
