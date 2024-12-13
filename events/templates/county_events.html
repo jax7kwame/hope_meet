@@ -1,11 +1,20 @@
 {% extends "base.html" %}
+{% block meta %}
 
+<meta name="description" content="Events happening in the County of {{ county.name }}.">
+<meta name="author" content="hopemeet">
+<meta property="og:title" content="{{ county.name }} | hopemeet events">
+<meta property="og:description" content="Events happening in the County of {{ county.name }}.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% endblock %}
 {% block title %}{{ county.name }} | {% endblock title %}
 
 {% block content %}
 {% include 'includes/header.html' %}
 <!-- All category events section -->
-<section id="all-events-section" class="container-fluid my-3" style="font-family: Roboto Slab, serif">
+<section id="all-events-section" class="container-fluid my-3">
     <div class="my-5">
         <h3>County: {{ county.name }}</h3>
     </div>

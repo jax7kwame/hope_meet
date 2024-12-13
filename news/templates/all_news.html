@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 
+{% block meta %}
+
+<meta name="description" content="Welcome to hopemeet, your go-to source for the latest news, trends, and insights from Adventist community. Stay informed with real-time updates and compelling stories that matter. Whether it's breaking news, lifestyle, technology, or entertainment, we bring you the most important headlines – all in one place. Get ready to explore, stay connected, and keep up with the stories shaping Adventist community.">
+<meta name="author" content="hopemeet">
+<meta property="og:title" content="News | hopemeet events">
+<meta property="og:description" content="Welcome to hopemeet, your go-to source for the latest news, trends, and insights from Adventist community. Stay informed with real-time updates and compelling stories that matter. Whether it's breaking news, lifestyle, technology, or entertainment, we bring you the most important headlines – all in one place. Get ready to explore, stay connected, and keep up with the stories shaping Adventist community.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% endblock %}
+
 {% block title %}news |{% endblock title %}
 
 {% block content %}
 {% include 'includes/header.html' %}
 <!-- News -->
-<section id="all-news-articles" class="container my-5" style="font-family: Roboto Slab, serif;">
+<section id="all-news-articles" class="container my-5">
     <h3 class="text-center mt-4 mb-5">News</h3>
     <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         {% for news in news_page_obj %}
@@ -88,7 +99,7 @@
 
 <!-- back to top -->
 <div class="pb-4 text-center">
-    <a href="#" class=" text-decoration-none" style="color: #003b5c; font-family: Roboto Slab, serif;">
+    <a href="#" class=" text-decoration-none" style="color: #003b5c;">
         <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
           </svg><spa class="ms-3 text-decoration-none">Top</span>

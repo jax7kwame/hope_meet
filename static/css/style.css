@@ -8,6 +8,7 @@ body {
 }
 
 
+
 /* signup.html */
 
 /* sign-up section */
@@ -491,6 +492,34 @@ nav input:focus {
   object-fit: cover;
   width: 15rem;
 }
+
+.why-choose-section {
+  padding-top: 6rem;
+  padding-bottom: 4rem;
+}
+
+.why-choose-section .img-wrap {
+  position: relative;
+}
+
+.why-choose-section .img-wrap:before {
+  position: absolute;
+  content: "";
+  width: 255px;
+  height: 217px;
+  background-image: url("../images/dots-yellow.svg");
+  background-repeat: no-repeat;
+  background-size: contain;
+  -webkit-transform: translate(-40%, -40%);
+  -ms-transform: translate(-40%, -40%);
+  transform: translate(-40%, -40%);
+  z-index: -1;
+}
+
+.why-choose-section .img-wrap img {
+  border-radius: 20px;
+}
+
 
 #contact {
   background-color: #003b5c;

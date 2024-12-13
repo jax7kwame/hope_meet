@@ -1,11 +1,24 @@
 {% extends 'base.html' %}
+
+
+{% block meta %}
+
+<meta name="description" content="Check out this page with all the venues for the events listed in hopemeet events. Explore to discover the venues and events that will be held there.">
+<meta name="author" content="hopemeet">
+<meta property="og:title" content="All venues | hopemeet events">
+<meta property="og:description" content="Check out this page with all the venues for the events listed in hopemeet events. Explore to discover the venues and events that will be held there.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% endblock %}
+
 {% block title %}venues | {% endblock %}
 
 {% load static %}
 {% block content %}
 {% include 'includes/header.html' %}
     <!-- All venues -->
-    <section id="all-venues-section" style="font-family: Roboto Slab, serif;">
+    <section id="all-venues-section">
         <!-- Venue section -->
         <section id="venue-section" class="container-fluid pt-3 pb-5">
             <!-- venue search banner -->

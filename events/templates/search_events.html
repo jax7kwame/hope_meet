@@ -1,11 +1,22 @@
 {% extends "base.html" %}
 
+{% block meta %}
+
+<meta name="description" content="Search results | hopemeet events">
+<meta name="author" content="hopemeet">
+<meta property="og:title" content="search | hopemeet events">
+<meta property="og:description" content="Search results | hopemeet events">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% endblock %}
+
 {% block title %}search events |{% endblock title %}
 {% load static %}
 {% block content %}
 {% include 'includes/header.html' %}
 <!-- All events section -->
-<section id="all-events-section" class="container-fluid my-3"  style="font-family: Roboto Slab, serif">
+<section id="all-events-section" class="container-fluid my-3">
     <div class="mb-4 text-center">
         <h3>Searh results for "{{ query }}" </h3>
     </div>

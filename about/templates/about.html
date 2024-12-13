@@ -1,4 +1,16 @@
 {% extends "base.html" %}
+{% load static %}
+
+{% block meta %}
+
+<meta name="description" content="hopemeet events is your trusted source for Seventh-Day Adventist events, gatherings, and celebrations! We are a dedicated platform designed to bring together believers from all walks of life, fostering a community of faith, worship, and service.">
+<meta name="author" content="hopemeet">
+<meta property="og:title" content="About | hopemeet">
+<meta property="og:description" content="hopemeet events is your trusted source for Seventh-Day Adventist events, gatherings, and celebrations! We are a dedicated platform designed to bring together believers from all walks of life, fostering a community of faith, worship, and service.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% endblock %}
 
 {% block title %}about |{% endblock title %}
  
@@ -26,20 +38,76 @@
     </section>
 
     <!-- About text -->
-    <div class="container-fluid" style="font-family: Roboto Slab, serif">
-        <div class="row mb-4 mt-4">
+    <div class="container">
+        <div class="row mt-4">
             <div class="col-lg-12 text-center">
                 <p class="mx-5">{{ about_info.description|safe }}</p>
             </div>
         </div>
     </div>
 
+    <!-- Start Why Choose Us Section -->
+    <div class="why-choose-section">
+        <div class="container">
+            <div class="row justify-content-between align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="section-title">Why Choose Us</h2>
+                    <p>This platform offers convenience, allowing you to browse a wide variety of eventss from multiple entities in one place. </p>
+
+
+                    <div class="row my-5">
+
+                        <div class="col-6 col-md-6">
+                            <div class="feature">
+                                <div class="icon">
+                                    <i class="bi bi-universal-access-circle" style="font-size: 2.7rem"></i>
+                                </div>
+                                <h4>Easy to access</h3>
+                                <p>Readily access events</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-6">
+                            <div class="feature">
+                                <div class="icon">
+                                    <i class="bi bi-hourglass-split" style="font-size: 2.7rem"></i>
+                                </div>
+                                <h4>24/7 Support</h3>
+                                <p>Timely response to your needs.</p>
+                            </div>
+                        </div>
+
+                        <div class="col-6 col-md-6">
+                            <div class="feature">
+                                <div class="icon">
+                                    <i class="bi bi-calendar2-plus" style="font-size: 2.7rem"></i>
+                                </div>
+                                <h4>Up-to-date</h3>
+                                <p>Easily check for updates.</p>
+                            </div>
+                        </div>
+
+                        
+                    </div>
+                </div>
+
+                <div class="col-lg-5">
+                    <div class="img-wrap">
+                        <img src="{% static './images/why-choose-us.jpg' %}" alt="Image" class="img-fluid">
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+    <!-- End Why Choose Us Section -->
+
     <!-- Services section -->
-    <section id="services" style="font-family: Roboto Slab, serif">
+    <section id="services">
         <div class="container my-5 pb-3">
             <div class="row mb-4 mt-4">
                 <div class="col-lg-12 text-center">
-                    <h1 class="mb-4 text-center">Services</h1>
+                    <h2 class="mb-4 text-center">Services</h2>
                     <p class="mx-5">{{ about_info.services_intro|safe }} </p>
                 </div>
             </div>
@@ -64,8 +132,8 @@
 
     <!-- Our team -->
     <section id="team">
-        <div class="container text-center m-auto" style="font-family: Roboto Slab, serif">
-            <h1 class="text-md-start mb-5">The team</h1>
+        <div class="container text-center m-auto">
+            <h2 class="text-md-start mb-5">The team</h2>
             <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-3">
                 {% for team_member in about_info.team.all %}
                 <div class="col d-flex justify-content-center">
@@ -205,8 +273,8 @@
     <section id="review" class="view-height">
         <div class="row mb-4 mt-5">
             <!--title-->
-            <div class="col-sm-4 text-center mt-3 mb-5" style="font-family: Roboto Slab, serif">
-                <h1 class="fs-1 ps-4">What people say...</h1>
+            <div class="col-sm-4 text-center mt-3 mb-5">
+                <h2 class="fs-1 ps-4">What people say...</h2>
                 <!--<p class="fw-medium mx-5">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod </p>-->
             </div>
             <!--Reviews -->
@@ -237,7 +305,7 @@
     <a href="#" class=" text-decoration-none" style="color: #003b5c;">
         <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
-          </svg><spa class="ms-3 text-decoration-none" style="font-family: Roboto Slab, serif">Top</span>
+          </svg><spa class="ms-3 text-decoration-none">Top</span>
     </a>
 </div>
 

@@ -1,5 +1,16 @@
 {% extends "base.html" %}
 
+{% block meta %}
+
+<meta name="description" content="'{{ news_article.title }}' by {{ news_article.author }}. Click to read.">
+<meta name="author" content="hopemeet">
+<meta property="og:title" content="{{ news_article.title }} | hopemeet events">
+<meta property="og:description" content="'{{ news_article.title }}' by {{ news_article.author }}. Click to read.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="{{ request.build_absolute_uri }}">
+
+{% endblock %}
+
 {% block title %}{{ news_article.title }} |{% endblock title %}
 
 {% block content %}
@@ -8,7 +19,7 @@
     <div class="row mb-5">
         <div class="col-lg-9">
             <!-- Banner -->
-            <section id="banner" class="mb-5" style="font-family: Roboto Slab, serif;">
+            <section id="banner" class="mb-5">
                 <div class="container text-center mb-3">
                     <h1 class="my-5 display-4 pt-3">{{ news_article.title }}</h1>
                     <p>Author: {{ news_article.author }}</p>
@@ -31,7 +42,7 @@
 
             </section>
             <!-- Blog Article -->
-            <section id="article" style="font-family: Roboto Slab, serif;">
+            <section id="article">
                 <article class="container">
                     <blockquote class="blockquote px-2 pb-2">
                         <p>{{ news_article.intro|safe }}</p>
@@ -57,7 +68,7 @@
                 </article>
             </section>
         </div>
-        <div class="col-lg-3" style="font-family: Roboto Slab, serif;">
+        <div class="col-lg-3">
             <h3 class="text-center text-decoration-underline mt-5">More articles</h3>
             <div class="container my-5">
                 <div class="row row-cols-1 row-cols-lg-1 g-4">
@@ -85,7 +96,7 @@
     </div>
     <!-- back to top -->
 <div class="pb-4 text-center">
-    <a href="#" class=" text-decoration-none" style="color: #003b5c; font-family: Roboto Slab, serif;">
+    <a href="#" class=" text-decoration-none" style="color: #003b5c;">
         <svg xmlns="http://www.w3.org/2000/svg" height="30" fill="currentColor" class="bi bi-arrow-up-square" viewBox="0 0 16 16">
             <path fill-rule="evenodd" d="M15 2a1 1 0 0 0-1-1H2a1 1 0 0 0-1 1v12a1 1 0 0 0 1 1h12a1 1 0 0 0 1-1zM0 2a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v12a2 2 0 0 1-2 2H2a2 2 0 0 1-2-2zm8.5 9.5a.5.5 0 0 1-1 0V5.707L5.354 7.854a.5.5 0 1 1-.708-.708l3-3a.5.5 0 0 1 .708 0l3 3a.5.5 0 0 1-.708.708L8.5 5.707z"/>
           </svg><spa class="ms-3 text-decoration-none">Top</span>
