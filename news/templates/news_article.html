@@ -8,6 +8,9 @@
 <meta property="og:description" content="'{{ news_article.title }}' by {{ news_article.author }}. Click to read.">
 <meta property="og:type" content="article">
 <meta property="og:url" content="{{ request.build_absolute_uri }}">
+{% if news_article.image %}
+    <meta property="og:image" content="https://hopemeet.pythonanywhere.com{{ news_article.image.url }}"
+{% endif %}
 
 {% endblock %}
 
