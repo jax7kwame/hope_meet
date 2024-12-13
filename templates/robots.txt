@@ -1,0 +1,2 @@
+User-Agent: *
+Disallowed: /hopemeet-admin/secure-login/
