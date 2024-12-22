@@ -218,6 +218,14 @@
                     </div>                     
                     {% endif %}
                 </section>
+
+                <!-- map -->
+                <section class="mt-4" id="event-photo-gallery">
+                    <div class="w-75 mb-5" style="height: 5px; background-color: black;"></div>
+                    {{ map|safe }}           
+                    {% endif %}
+                </section>
+
             </div>
             <!-- More from the organizer -->
             <div id="more-events" class="col-md-4">
@@ -254,7 +262,7 @@
 
     </div>
 </section>
-{% endif %}
+
 
 <!-- back to top -->
 <div class="pb-4 text-center">

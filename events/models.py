@@ -53,6 +53,8 @@ class Venue(models.Model):
 
     venue_type = models.ForeignKey(VenueType, related_name="venue_types", blank=True, null=True, on_delete=models.SET_NULL)
     location = models.CharField(max_length=100)
+    latitude = models.FloatField(blank=True, null=True)
+    longitude = models.FloatField(blank=True, null=True)
     county = models.ForeignKey(County, blank=True, null=True, related_name="venues", on_delete=models.SET_NULL)
     address = models.CharField(max_length=100, blank=True)
     phone = PhoneField(blank=True, help_text='Contact phone number')

@@ -6,6 +6,7 @@ from django.http import HttpResponseRedirect, JsonResponse
 from django.core.paginator import Paginator
 from django.urls import reverse
 from taggit.models import Tag
+import folium
 
 from datetime import datetime
 from .models import Event, EventCategory, Venue, ChurchOrGroup, County
@@ -75,15 +76,32 @@ def event_detail_view(request, category_slug, slug):
     sponsors_partners = event.event_sponsors_partners.all()
     photo_gallery = event.event_gallery.all()
     #group = get_object_or_404(ChurchOrGroup, slug=slug)
+    if event.venue.latitude and event.venue.longitude:
+        # folium map
+        # centered on the venue
+        m = folium.Map(location=[event.venue.latitude, event.venue.longitude], zoom_start=15)
 
-    context = {
-        "event": event,
-        'similar_events': similar_events,
-        'speakers': speakers,
-        'sponsors_partners': sponsors_partners,
-        'photo_gallery': photo_gallery
-        #"group": group
-    }
+        # add a marker for the location
+        coordinates = (event.venue.latitude, event.venue.longitude)
+        folium.Marker(coordinates, popup=event.venue.name).add_to(m)
+
+        context = {
+            "event": event,
+            'similar_events': similar_events,
+            'speakers': speakers,
+            'sponsors_partners': sponsors_partners,
+            'photo_gallery': photo_gallery,
+            'map': m._repr_html_()
+            #"group": group
+        }
+    else:
+        context = {
+            "event": event,
+            'similar_events': similar_events,
+            'speakers': speakers,
+            'sponsors_partners': sponsors_partners,
+            'photo_gallery': photo_gallery,
+        }
 
     return render(request, 'event.html', context)
 
@@ -160,11 +178,25 @@ def venues_view(request):
 def venue_detail_view(request, slug):
     venue = get_object_or_404(Venue, slug=slug)
     venue_images = venue.venue_images.all()
+    if venue.latitude and venue.longitude:
+        # folium map
+        # centered on the venue
+        m = folium.Map(location=[venue.latitude, venue.longitude], zoom_start=15)
 
-    context = {
-        'venue': venue,
-        'venue_images': venue_images,
-    }
+        # add a marker for the location
+        coordinates = (venue.latitude, venue.longitude)
+        folium.Marker(coordinates, popup=venue.name).add_to(m)
+
+        context = {
+            'venue': venue,
+            'venue_images': venue_images,
+            'map': m._repr_html_()
+        }
+    else:
+        context = {
+            'venue': venue,
+            'venue_images': venue_images,
+        }
 
     return render(request, 'venue.html', context)
 
