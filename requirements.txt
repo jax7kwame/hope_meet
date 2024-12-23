@@ -4,7 +4,6 @@ certifi==2024.8.30
 channels==4.1.0
 charset-normalizer==3.4.0
 Django==5.0.4
-django-admin-honeypot==1.1.0
 django-advanced-password-validation==1.2.0
 django-anymail==12.0
 django-password-strength==1.2.1
