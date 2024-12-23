@@ -16,11 +16,11 @@ def send_otp(request, user, email):
     request.session['otp_valid_date'] = valid_date.strftime("%Y-%m-%d %H:%M:%S")#str(valid_date)
     # send email
     msg = EmailMultiAlternatives(
-                "Activate hopemeet account.", 
+                "Activate commineon account.", 
                 f"Hi { user.first_name }",
-                "hopemeet.store@gmail.com",
+                "commineon@gmail.com",
                 [email])
-    msg.attach_alternative(f'<p>Hi <strong>{user.first_name}</strong></p><p>Thank you for joining us. Here is your OTP: <strong>{ otp }</strong></p><p>For any feedback: <b>hopemeet.store@gmail.com</b></p>', "text/html")
+    msg.attach_alternative(f'<p>Hi <strong>{user.first_name}</strong></p><p>Thank you for joining us. Here is your OTP: <strong>{ otp }</strong></p><p>For any feedback: <b>commineon@gmail.com</b></p>', "text/html")
     
     msg.send()
 
@@ -40,8 +40,8 @@ def send_otp_forgot_password(request, user, email):
     msg = EmailMultiAlternatives(
                 "Forgot password OTP", 
                 f"Hi { user.first_name }",
-                "hopemeet.store@gmail.com",
+                "commineon@gmail.com",
                 [email])
-    msg.attach_alternative(f'<p>Hi <strong>{user.first_name}</strong></p><p>Use the OTP to create a new password. Here is your OTP: <strong>{ otp }</strong></p><p>For any feedback: <b>hopemeet.store@gmail.com</b></p>', "text/html")
+    msg.attach_alternative(f'<p>Hi <strong>{user.first_name}</strong></p><p>Use the OTP to create a new password. Here is your OTP: <strong>{ otp }</strong></p><p>For any feedback: <b>commineon@gmail.com</b></p>', "text/html")
     
     msg.send()

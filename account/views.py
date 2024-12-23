@@ -8,7 +8,7 @@ from datetime import datetime
 import pyotp
 import requests
 # email verification
-#from django.core.mail import EmailMultiAlternatives
+from django.core.mail import EmailMultiAlternatives
 
 
 from .utils import send_otp
@@ -31,15 +31,21 @@ def register_view(request):
             user = Account.objects.create_user(first_name=first_name, last_name=last_name, username=username, email=email,  password=password)
 
             user.phone_number = phone_number
-
+            #user.is_active = True
             user.save()
 
             # send otp
+            
             send_otp(request, user=user, email=email)
             request.session['username'] = username
+            
 
             messages.success(request, "Successful registration. An activation code was sent to your email.")
+            '''
+            messages.success(request, "Successful registration. An activation code was sent to your email.")
+            '''
             return redirect('activate')
+           # return redirect('login')
     else:
         form = RegistrationForm()
 
@@ -194,3 +200,5 @@ def activate_view(request):
 
 
     return render(request, 'account/account-verification.html')
+
+    

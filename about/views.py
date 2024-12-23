@@ -6,7 +6,7 @@ from contact.forms import ContactUsForm
 
 def about_view(request):
     # about object
-    about_info = get_object_or_404(About, name='hopemeet')
+    about_info = get_object_or_404(About, name='commineon')
 
     # contact us form
     if request.method == "POST":

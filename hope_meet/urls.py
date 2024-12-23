@@ -8,7 +8,7 @@ from django.views.generic.base import TemplateView
 
 urlpatterns = [
     #path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
-    path('hopemeet-admin/secure-login/', admin.site.urls),
+    path('commineon-admin/secure-login/', admin.site.urls),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('', include('about.urls')),
     path('', include("core.urls")),
@@ -20,5 +20,5 @@ urlpatterns = [
 document_root=settings.MEDIA_ROOT)
 
 
-admin.site.site_header = "Hopemeet administration"
-admin.site.index_title = "Welcome to hopemeet admin site"
+admin.site.site_header = "Commineon administration"
+admin.site.index_title = "Welcome to Commineon admin site"
