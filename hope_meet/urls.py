@@ -7,14 +7,13 @@ from django.views.generic.base import TemplateView
 
 
 urlpatterns = [
-    path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
+    #path('admin/', include('admin_honeypot.urls', namespace='admin_honeypot')),
     path('hopemeet-admin/secure-login/', admin.site.urls),
     path('robots.txt', TemplateView.as_view(template_name='robots.txt', content_type='text/plain')),
     path('', include('about.urls')),
     path('', include("core.urls")),
     path('', include('events.urls')),
     path('', include('news.urls')),
-    
     path('', include('contact.urls')),
     path('account/', include('account.urls')),
 ] + static(settings.MEDIA_URL,
