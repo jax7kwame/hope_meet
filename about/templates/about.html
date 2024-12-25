@@ -194,20 +194,28 @@
                 {% for contact in about_info.contacts.all %}   
                 <div class="col-md-4 text-center">
                     <div class="mt-5 ps-3 pt-2">
+                    {% if contact.email %}
                         <p><strong class="me-2">email:</strong> {{contact.email}}</p>
+                    {% endif %}
+                    {% if contact.telephone %}
                         <p><strong class="me-2">tel:</strong> {{contact.telephone}}</p>
+                    {% endif %}
                     </div>
                     <div class="mb-3 ps-3">
+                    {% if contact.personal_address %}
                         <p class="">
                             <span>
                                 <i class="bi bi-mailbox2 fs-3 me-2"></i> {{contact.postal_address}}
                             </span>
                         </p>
+                    {% endif %}
+                    {% if contact.location %}
                         <p class="">
                             <span>
                                 <i class="bi bi-geo-alt-fill fs-3 me-2"></i> {{contact.location}}
                             </span>
                         </p>
+                    {% endif %}
                     </div>
                     <div class="mb-3">
                         <!-- social media links -->
