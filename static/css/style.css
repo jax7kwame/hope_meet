@@ -593,6 +593,12 @@ nav input:focus {
 
 }
 
+@media screen and (min-width: 770px) {
+  .title-block {
+    display: none;
+  }
+}
+
 /* VENUE.HTML */
 /* venue carousel */
 #venue-carousel .carousel-img {

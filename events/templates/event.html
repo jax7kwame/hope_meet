@@ -27,7 +27,7 @@
         <div class="banner-container event-img-container">
             <img src="{{ event.image.url }}" alt="Event image"
                 class="" srcset="">
-            <div class="banner-overlay d-sm-none d-md-block">
+            <div class="banner-overlay d-none d-sm-block d-sm-none d-md-block">
                 <h5 class="display-5 fw-semibold">{{ event.title }}</h5>
                 <small class="fw-semibold">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {% if event.ending_date %}- {{ event.ending_date|date:'D' }}, {{ event.ending_date }}{% endif %}</small>
                 <br>
@@ -39,8 +39,11 @@
 
     
     <div class="container">
+        <div class="title-block text-center" style="">
+            <p class="fw-bold fs-4">{{ event.title }}</p>
+        </div>
         <!-- category -->
-        <p class="d-none d-sm-block d-md-none fw-bold fs-4 text-center">{{ event.title }}</p>
+        
         <div class="row mt-2">
             <div class="col-md-8 text-center mt-2 pb-3">
                 <a href="{% url 'category' event.category.slug %}" class="text-decoration-none fw-bold" style="color: #d86018;">
@@ -50,6 +53,11 @@
                     <small><strong>Venue:</strong> <a href="{% url 'venue_detail' event.venue.slug %}" class="text-decoration-none" style="color: #d86018;">{{ event.venue}}</a></small>
                     <br>
                     <small><strong>Location:</strong> {{ event.location}}, {{ event.county_local }}</small>
+                </div>
+                <div class="my-3">
+                    <small class="fw-semibold">{{ event.starting_date|date:'D' }}, {{ event.starting_date }} {% if event.ending_date %}- {{ event.ending_date|date:'D' }}, {{ event.ending_date }}{% endif %}</small>
+                    <br>
+                    <small class="fw-semibold">{{ event.remaining_days }}</small>
                 </div>
  
             </div>
