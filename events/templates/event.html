@@ -40,7 +40,7 @@
     
     <div class="container">
         <div class="title-block text-center" style="">
-            <p class="fw-bold fs-4">{{ event.title }}</p>
+            <p class="fw-bold fs-4">{{ event.title }}</p>{% if event.is_virtual %}<span><a href="{{ event.virtual_link }}" class="border-none btn btn-sm btn-primary ms-3 fw-bold" target="_blank">virtual</a></span>{% endif %}
         </div>
         <!-- category -->
         

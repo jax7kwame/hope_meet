@@ -136,6 +136,7 @@ class Event(models.Model):
     manager = models.ForeignKey(Account, blank=True, null=True, on_delete=models.SET_NULL, related_name="events")
     featured = models.BooleanField(default=False)
     is_virtual = models.BooleanField(default=False)
+    virtual_link = models.CharField(max_length=255, blank=True, null=True)
     post_event = models.BooleanField(default=False)
     likes = models.ManyToManyField(Account, blank=True, related_name="video_liked")
     dislikes = models.ManyToManyField(Account, blank=True, related_name="video_disliked")
