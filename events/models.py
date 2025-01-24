@@ -217,6 +217,15 @@ class Speaker(models.Model):
     def __str__(self):
         return self.name
 
+# Guest choir
+class GuestChoir(models.Model):
+    event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, related_name="event_guest_choirs")
+    image = models.ImageField(upload_to='uploads/guest_choirs', blank=True, null= True)
+    name = models.CharField(max_length=100)
+
+    def __str__(self):
+        return self.name
+
 # sponsors and patners
 class SponsorPartner(models.Model):
     event = models.ForeignKey(Event, on_delete=models.CASCADE, null=True, related_name="event_sponsors_partners")

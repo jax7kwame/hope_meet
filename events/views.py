@@ -75,6 +75,7 @@ def event_detail_view(request, category_slug, slug):
     speakers = event.event_speakers.all()
     sponsors_partners = event.event_sponsors_partners.all()
     photo_gallery = event.event_gallery.all()
+    guest_choirs = event.event_guest_choirs.all()
     #group = get_object_or_404(ChurchOrGroup, slug=slug)
     if event.venue.latitude and event.venue.longitude:
         # folium map
@@ -88,6 +89,7 @@ def event_detail_view(request, category_slug, slug):
         context = {
             "event": event,
             'similar_events': similar_events,
+            'guest_choirs': guest_choirs,
             'speakers': speakers,
             'sponsors_partners': sponsors_partners,
             'photo_gallery': photo_gallery,

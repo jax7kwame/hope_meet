@@ -40,7 +40,10 @@
     
     <div class="container">
         <div class="title-block text-center" style="">
-            <p class="fw-bold fs-4">{{ event.title }}</p>{% if event.is_virtual %}<span><a href="{{ event.virtual_link }}" class="border-none btn btn-sm btn-primary ms-3 fw-bold" target="_blank">virtual</a></span>{% endif %}
+            <p class="fw-bold fs-4">{{ event.title }}</p>
+            {% if event.is_virtual %}
+                <span><a href="{{ event.virtual_link }}" class="border-none btn btn-sm btn-primary ms-3 fw-bold" target="_blank">virtual</a></span>
+            {% endif %}
         </div>
         <!-- category -->
         
@@ -153,6 +156,33 @@
                 <!-- Description -->
                 <div class="mt-2">{{ event.description|safe}}</div>
                 
+                <!-- Guest choirs -->
+                <section class="mt-4" id="guest-choirs">
+                    {% if guest_choirs %}
+                    <div class="container text-center m-auto">
+                        <h5 class="text-md-center text-uppercase mb-3">Guest Choirs</h5>
+                        <div class="w-25 mb-5" style="height: 5px; background-color: black;"></div>
+                        <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-2">
+                            {% for choir in guest_choirs %}
+                            <div class="col d-flex justify-content-center">
+                                <div class="card border-0" style="max-width: 15rem;">
+                                    {% if choir.image %}
+                                    <img src="{{choir.image.url}}" alt="speaker image"
+                                        class="speaker-profile-img">
+                                    {% else %}
+                                    <img src="{% static './images/defaults/guest_choir/choir.PNG' %}" alt="speaker image"
+                                        class="speaker-profile-img">
+                                    {% endif %}
+                                    <div class="card-body">
+                                        <strong><small>{{choir.name}}</small></strong>            
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                    {% endif %}
+                </section>
                 <!-- speaker -->
                 <section class="mt-4" id="speakers">
                     {% if speakers %}

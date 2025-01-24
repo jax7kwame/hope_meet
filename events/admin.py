@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages, Union, Conference, PhotoGallery
+from .models import Event, EventCategory, Venue, ChurchOrGroup, VenueType, County, Speaker, SponsorPartner, VenueImages, Union, Conference, PhotoGallery, GuestChoir
 
 
 
@@ -8,6 +8,9 @@ class PhotoGalleryAdmin(admin.TabularInline):
 
 class SpeakerAdmin(admin.TabularInline):
     model = Speaker
+
+class GuestChoirAdmin(admin.TabularInline):
+    model = GuestChoir
 
 class SponsorPartnerAdmin(admin.TabularInline):
     model = SponsorPartner
@@ -21,7 +24,7 @@ class EventCategoryAdmin(admin.ModelAdmin):
 
 
 class EventAdmin(admin.ModelAdmin):
-    inlines = [SpeakerAdmin, SponsorPartnerAdmin, PhotoGalleryAdmin]
+    inlines = [SpeakerAdmin, GuestChoirAdmin, SponsorPartnerAdmin, PhotoGalleryAdmin]
     list_display = ['title', 'category', 'post_event', 'featured', 'starting_date', 'ending_date', 'county_local']
     list_filter = ('category', 'created_at', 'church_or_group', 'manager')
     search_fields = ('title', 'district', 'description', 'manager')
